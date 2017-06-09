@@ -72,7 +72,7 @@ public class ProdutoBean implements Serializable {
 			FabricanteDao FabricanteDao = new FabricanteDao();
 			fabricantes = FabricanteDao.listar();
 
-			Messages.addGlobalInfo("Produto salva com sucesso");
+			Messages.addGlobalInfo("Produto salvo com sucesso");
 
 		} catch (RuntimeException e) {
 
@@ -83,6 +83,8 @@ public class ProdutoBean implements Serializable {
 
 	public void excluir(ActionEvent evento) throws Exception {
 
+		System.out.println("Persevere!!!");
+		
 		try {
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");

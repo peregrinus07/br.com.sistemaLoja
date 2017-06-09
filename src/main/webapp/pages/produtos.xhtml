@@ -19,7 +19,8 @@
 				rows="5">
 
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						update=":formCadastro:painel">
 
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -48,11 +49,32 @@
 				</p:column>
 
 				<p:column headerText="Opções">
- 
-				 
 
 
+					<p:commandButton icon="ui-icon-trash" actionListener="#{ProdutoBean.excluir}"
+						update=":mensagem :formListaProdutos:tabela">
+						<p:confirm header="Confirmation" message="Deseja deletar o Produto?"
+							icon="ui-icon-alert" />
+							<f:attribute name="produtoselecionado" value="#{produto}" />
+					</p:commandButton>
 
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Yes" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{ProdutoBean.editar}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:attribute name="produtoselecionado" value="#{produto}" />
+
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
+					</p:commandButton>
 
 				</p:column>
 
@@ -67,21 +89,27 @@
 
 			<h:panelGrid id="painel" columns="2">
 
-				<p:outputLabel value="Nome: " />
-				<p:inputText size="30" maxlength="50"
-					value="#{ProdutoBean.produto.nome}" />
+				<p:outputLabel for="nome" value="Nome: " />
+				<p:inputText id="nome" size="30" maxlength="50"
+					value="#{ProdutoBean.produto.nome}"
+					required="true" requiredMessage="O campo 'Nome' é obrigatório"  />
 
-				<p:outputLabel value="Descrição: " />
-				<p:inputText size="30" maxlength="50"
-					value="#{ProdutoBean.produto.descricao}" />
+				<p:outputLabel for="descricao" value="Descrição: " />
+				<p:inputText id="descricao" size="30" maxlength="50"
+					value="#{ProdutoBean.produto.descricao}"
+					required="true" requiredMessage="O campo 'Descrição' é obrigatório"  />
 
-				<p:outputLabel value="Quantidade: " />
-				<p:inputText size="30" maxlength="50"
-					value="#{ProdutoBean.produto.quantidade}" />
+				<p:outputLabel for="quantidade" value="Quantidade: " />
+				<p:inputText id="quantidade" size="30" maxlength="50"
+					value="#{ProdutoBean.produto.quantidade}"
+					required="true" requiredMessage="O campo 'Quantidade' é obrigatório"  
+					converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"/>
 
-				<p:outputLabel value="Preço: " />
-				<p:inputText size="10" maxlength="7"
-					value="#{ProdutoBean.produto.preco}" />
+				<p:outputLabel for="preco" value="Preço: " />
+				<p:inputText id="preco" size="10" maxlength="7"
+					value="#{ProdutoBean.produto.preco}" 
+					required="true" requiredMessage="O campo 'Preço' é obrigatório" 
+					converterMessage="Informe um valor válido no campo 'Preço' é invalido!"/>
 
 				<p:outputLabel value="Fabricante: " />
 				<p:selectOneMenu id="fabricante" filter="true"
@@ -93,8 +121,7 @@
 					<f:selectItems value="#{ProdutoBean.fabricantes}" var="fabricante"
 						itemValue="#{fabricante}" itemLabel="#{fabricante.nome}" />
 				</p:selectOneMenu>
-
-
+ 
 
 			</h:panelGrid>
 
