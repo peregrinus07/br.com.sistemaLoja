@@ -10,9 +10,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
-import br.com.sistemaLoja.domain.Estado;
 import br.com.sistemaLoja.domain.Fabricante;
-import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.FabricanteDao;
 
 @SuppressWarnings("serial")
