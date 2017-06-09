@@ -17,13 +17,16 @@
 		<p:panel header="Cidades - Listagem">
 
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{cidadeBean.cidades}" var="cidade"
-				rows="5">
+				paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5">
 
 				<!-- Novo Estado -->
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{cidadeBean.novo()}" update="" />
+						actionListener="#{cidadeBean.novo()}"
+						update=":mensagem :formCadastro:painel" >
+					 
+					  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					 </p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Nome e Id" sortBy="#{cidade.nome}"
@@ -49,11 +52,12 @@
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{cidadeBean.editar}" 
+						actionListener="#{cidadeBean.editar}"
 						update=":mensagem :formCadastro:painel"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
-					</p:commandButton>
+					 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					 </p:commandButton>
 
 
 				</p:column>
@@ -74,7 +78,7 @@
 	<!-- Janela Nova Cidade -->
 	<p:dialog header="Cidades - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro"> 
+		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel for="nome" value="Nome:" />
 				<p:inputText id="nome" maxlength="50" size="30"

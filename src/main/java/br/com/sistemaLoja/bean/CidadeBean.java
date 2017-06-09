@@ -59,13 +59,10 @@ public class CidadeBean implements Serializable {
 
 	public void salvar() throws Exception {
 
-	  
 		try {
- 
+
 			CidadeDao cidadeDao = new CidadeDao();
 			cidadeDao.merge(cidade);
-
-		 
 
 			// limpando os objetos
 			cidade = new Cidade();
@@ -124,7 +121,7 @@ public class CidadeBean implements Serializable {
 
 			cidade.setCodigo(cidadeEditar.getCodigo());
 
-			teste();
+			 
 
 		} catch (RuntimeException erro) {
 
@@ -134,15 +131,7 @@ public class CidadeBean implements Serializable {
 
 	}
 
-	public void teste() {
-
-		System.out.println("#########");
-		System.out.println("#########");
-		System.out.println("ID Editar: " + getCidadeEditar().getCodigo());
-		System.out.println("ID Cidade: " + cidade.getCodigo());
-		System.out.println("#########");
-		System.out.println("#########");
-	}
+	 
 
 	public Cidade getCidadeEditar() {
 		return cidadeEditar;
