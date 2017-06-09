@@ -43,19 +43,27 @@
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Fabricante" sortBy="#{produto.fabricante.nome}"
+				<p:column headerText="Preço" sortBy="#{produto.preco}"
+					filterBy="#{produto.preco}">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+ 
+				<p:column headerText="Fabricante"
+					sortBy="#{produto.fabricante.nome}"
 					filterBy="#{produto.fabricante.nome}">
 					<h:outputText value="#{produto.fabricante.nome}" />
 				</p:column>
 
 				<p:column headerText="Opções">
-
-
-					<p:commandButton icon="ui-icon-trash" actionListener="#{ProdutoBean.excluir}"
+ 
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{ProdutoBean.excluir}"
 						update=":mensagem :formListaProdutos:tabela">
-						<p:confirm header="Confirmation" message="Deseja deletar o Produto?"
-							icon="ui-icon-alert" />
-							<f:attribute name="produtoselecionado" value="#{produto}" />
+						<p:confirm header="Confirmation"
+							message="Deseja deletar o Produto?" icon="ui-icon-alert" />
+						<f:attribute name="produtoselecionado" value="#{produto}" />
 					</p:commandButton>
 
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -91,18 +99,18 @@
 
 				<p:outputLabel for="nome" value="Nome: " />
 				<p:inputText id="nome" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.nome}"
-					required="true" requiredMessage="O campo 'Nome' é obrigatório"  />
+					value="#{ProdutoBean.produto.nome}" required="true"
+					requiredMessage="O campo 'Nome' é obrigatório" />
 
 				<p:outputLabel for="descricao" value="Descrição: " />
 				<p:inputText id="descricao" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.descricao}"
-					required="true" requiredMessage="O campo 'Descrição' é obrigatório"  />
+					value="#{ProdutoBean.produto.descricao}" required="true"
+					requiredMessage="O campo 'Descrição' é obrigatório" />
 
 				<p:outputLabel for="quantidade" value="Quantidade: " />
 				<p:inputText id="quantidade" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.quantidade}"
-					required="true" requiredMessage="O campo 'Quantidade' é obrigatório"  
+					value="#{ProdutoBean.produto.quantidade}" required="true"
+					requiredMessage="O campo 'Quantidade' é obrigatório"
 					converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"
 					validatorMessage="Informe um Valor entre 0 e 1000 para o campo 'Quantidade'">
 					<f:validateLongRange minimum="0" maximum="100000" />
@@ -110,13 +118,14 @@
 
 				<p:outputLabel for="preco" value="Preço: " />
 				<p:inputText id="preco" size="10" maxlength="7"
-					value="#{ProdutoBean.produto.preco}" 
-					required="true" requiredMessage="O campo 'Preço' é obrigatório" 
+					value="#{ProdutoBean.produto.preco}" required="true"
+					requiredMessage="O campo 'Preço' é obrigatório"
 					converterMessage="Informe um valor válido no campo 'Preço' é invalido!"
 					validatorMessage="Informe um Valor entre 0,1 e 9999,00 para o campo 'Preço'">
-					<f:validateDoubleRange minimum="0.1" maximum="9999.99" />					
+					<f:validateDoubleRange minimum="0.1" maximum="9999.99" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</p:inputText>
-				
+
 				<p:outputLabel value="Fabricante: " />
 				<p:selectOneMenu id="fabricante" filter="true"
 					value="#{ProdutoBean.produto.fabricante}"
@@ -127,7 +136,6 @@
 					<f:selectItems value="#{ProdutoBean.fabricantes}" var="fabricante"
 						itemValue="#{fabricante}" itemLabel="#{fabricante.nome}" />
 				</p:selectOneMenu>
- 
 
 			</h:panelGrid>
 
@@ -137,7 +145,6 @@
 					actionListener="#{ProdutoBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
 					actionListener="#{ProdutoBean.salvar}" />
-
 
 			</h:panelGrid>
 
