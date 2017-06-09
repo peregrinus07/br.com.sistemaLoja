@@ -43,8 +43,8 @@
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Fabricante" sortBy="#{produto.fabricante}"
-					filterBy="#{produto.fabricante}">
+				<p:column headerText="Fabricante" sortBy="#{produto.fabricante.nome}"
+					filterBy="#{produto.fabricante.nome}">
 					<h:outputText value="#{produto.fabricante.nome}" />
 				</p:column>
 
@@ -103,14 +103,20 @@
 				<p:inputText id="quantidade" size="30" maxlength="50"
 					value="#{ProdutoBean.produto.quantidade}"
 					required="true" requiredMessage="O campo 'Quantidade' é obrigatório"  
-					converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"/>
+					converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"
+					validatorMessage="Informe um Valor entre 0 e 1000 para o campo 'Quantidade'">
+					<f:validateLongRange minimum="0" maximum="100000" />
+				</p:inputText>
 
 				<p:outputLabel for="preco" value="Preço: " />
 				<p:inputText id="preco" size="10" maxlength="7"
 					value="#{ProdutoBean.produto.preco}" 
 					required="true" requiredMessage="O campo 'Preço' é obrigatório" 
-					converterMessage="Informe um valor válido no campo 'Preço' é invalido!"/>
-
+					converterMessage="Informe um valor válido no campo 'Preço' é invalido!"
+					validatorMessage="Informe um Valor entre 0,1 e 9999,00 para o campo 'Preço'">
+					<f:validateDoubleRange minimum="0.1" maximum="9999.99" />					
+				</p:inputText>
+				
 				<p:outputLabel value="Fabricante: " />
 				<p:selectOneMenu id="fabricante" filter="true"
 					value="#{ProdutoBean.produto.fabricante}"
