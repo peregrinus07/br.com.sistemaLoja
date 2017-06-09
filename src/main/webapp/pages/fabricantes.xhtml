@@ -13,41 +13,49 @@
 	<p:growl id="mensagem" />
 	<h:form id="formLisFabricantes">
 		<p:panel header="Fabricantes - Listagem">
- 
+
 			<p:dataTable id="tabelaFabricantes"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{estadoBean.estados}" var="estado" rows="5">
+				value="#{FabricanteBean.fabricantes}" var="fabricante" rows="5">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{estadoBean.novo()}"
-						update=":formCadastro:painel" />
+						actionListener="#{FabricanteBean.novo()}"
+						update=":formCadastro:painel">
+
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy="#{estado.nome}"
-					filterBy="#{estado.nome}">
-					<h:outputText value="#{estado.nome}" />
+				<p:column headerText="Nome" sortBy="#{fabricante.nome}"
+					filterBy="#{fabricante.nome}">
+					<h:outputText value="#{fabricante.nome}" />
 				</p:column>
 
-				<p:column headerText="Sigla" sortBy="#{estado.sigla}"
-					filterBy="#{estado.sigla}">
-					<h:outputText value="#{estado.sigla}" />
+				<p:column headerText="Descrição" sortBy="#{fabricante.descricao}"
+					filterBy="#{fabricante.descricao}">
+					<h:outputText value="#{fabricante.descricao}" />
 				</p:column>
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{estadoBean.excluir}"
+						actionListener="#{FabricanteBean.excluir}"
 						update=":mensagem
 						 :formLisFabricantes:tabelaFabricantes">
-						<p:confirm header="Confirmação" message="Deseja excluir o Estado?"
-							icon="ui-icon-alert" />
-						<f:attribute name="estadoSelecionado" value="#{estado}" />
-					</p:commandButton> 
-					
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{estadoBean.editar}" 
-					 update=":formCadastro:painel"
-					 oncomplete="PF('dialogo').show();">
-						<f:attribute name="estadoSelecionado" value="#{estado}" />
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o Fabricante?" icon="ui-icon-alert" />
+						<f:attribute name="fabricanteSelecionado" value="#{fabricante}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{FabricanteBean.editar}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:attribute name="fabricanteSelecionado" value="#{fabricante}" />
+
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+
 					</p:commandButton>
 
 				</p:column>
@@ -65,24 +73,26 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Estados - Cadastros" widgetVar="dialogo"
+	<p:dialog header="Fabricantes - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true">
 
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel value="Nome: " />
-				<p:inputText size="30" maxlength="20"
-					value="#{estadoBean.estado.nome}" />
+				<p:inputText size="30" maxlength="50" required="true"
+					requiredMessage="O campo 'Nome' é obrigatório"
+					value="#{FabricanteBean.fabricante.nome}" />
 
-				<p:outputLabel value="Sigla: " />
-				<p:inputText size="10" maxlength="2"
-					value="#{estadoBean.estado.sigla}" />
+				<p:outputLabel value="Descrição: " />
+				<p:inputText size="30" maxlength="200" required="true"
+					requiredMessage="O campo 'Descrição' é obrigatório"
+					value="#{FabricanteBean.fabricante.descricao}" />
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{estadoBean.salvar}"
+					actionListener="#{FabricanteBean.salvar}"
 					update=":mensagem :formCadastro:painel
 					 :formLisFabricantes:tabelaFabricantes" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
