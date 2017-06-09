@@ -1,6 +1,8 @@
 package br.com.sistemaLoja.bean;
 
 import javax.faces.event.ActionEvent;
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -57,48 +59,88 @@ public class CidadeBean implements Serializable {
 
 	public void salvar() throws Exception {
 
+		teste();
+
+		System.out.println("Metodo salvar");
 		try {
+
+			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
+			System.out.println("Estado: " + cidade.getEstado().getNome());
 
 			CidadeDao cidadeDao = new CidadeDao();
 			cidadeDao.salvar(cidade);
-			
+
+			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
+			System.out.println("Estado: " + cidade.getEstado().getNome());
+
 			// limpando os objetos
 			cidade = new Cidade();
-			
+
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
-						
+
 			Messages.addGlobalInfo("Cidade salva com sucesso");
-			
+
 		} catch (RuntimeException e) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova cidades");
 		}
 
 	}
-	
-	public void excluir(ActionEvent evento) throws Exception{
-		
+
+	public void excluir(ActionEvent evento) throws Exception {
+
 		try {
 
 			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
-			
+
 			CidadeDao cidadeDao = new CidadeDao();
 			cidadeDao.excluir(cidade);
-			
+
 			// limpando os objetos
 			cidade = new Cidade();
-			
+
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
-						
+
 			Messages.addGlobalInfo("Cidade excluida com sucesso");
-			
+
 		} catch (RuntimeException e) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir");
 		}
-		
+
+	}
+
+	public void editar(ActionEvent evento) {
+
+		try {
+
+			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionado");
+
+			System.out.println("Metodo editar");
+			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
+			System.out.println("Estado: " + cidade.getEstado().getNome());
+
+			
+			 
+			
+			EstadoDao estadoDao = new EstadoDao();
+			estados = estadoDao.listar();
+		} catch (RuntimeException erro) {
+
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma cidade");
+			erro.printStackTrace();
+		}
+
+	}
+ 
+	public void teste() {
+
+		System.out.println("Metodo teste id da cidade");
+		System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade: " + cidade.getCodigo());
+		System.out.println("Estado: " + cidade.getEstado().getNome());
+
 	}
 
 	public Cidade getCidade() {
