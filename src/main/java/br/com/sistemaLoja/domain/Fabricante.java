@@ -10,6 +10,9 @@ public class Fabricante extends GenericDomain {
 	@Column(length = 200, nullable = false)
 	private String descricao;
 
+	@Column(length = 50, nullable = false)
+	private String nome;
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -18,4 +21,13 @@ public class Fabricante extends GenericDomain {
 		this.descricao = descricao;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 }

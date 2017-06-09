@@ -17,7 +17,12 @@
 				paginator="true">
 
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
+
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+
 				</f:facet>
 
 				<p:column headerText="Descrição" sortBy="" filterBy=""></p:column>
@@ -26,7 +31,13 @@
 
 				<p:column headerText="Fabricante"></p:column>
 
-				<p:column headerText="Opções"></p:column>
+				<p:column headerText="Opções">
+
+
+					 
+
+
+				</p:column>
 
 			</p:dataTable>
 
@@ -50,7 +61,7 @@
 				<p:selectOneMenu filter="true">
 					<f:selectItem itemValue="" itemLabel="Selecione um Fabricante" />
 				</p:selectOneMenu>
- 
+
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
