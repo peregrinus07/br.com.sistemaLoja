@@ -98,6 +98,29 @@
 					value="#{pessoaBean.pessoa.cpf}" required="true"
 					requiredMessage="O campo 'CPF' é obrigatório" />
 
+				<p:outputLabel for="estado" value="Estado:" />
+				<p:selectOneMenu id="estado" filter="true"					 
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'Cidade' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma Cidade" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estado"
+						itemValue="#{estado}" itemLabel="#{estado.nome}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel for="cidade" value="Cidade:" />
+				<p:selectOneMenu id="cidade" filter="true"
+					value="#{pessoaBean.pessoa.cidade}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'Cidade' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma Cidade" />
+					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
+						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+				</p:selectOneMenu>
+
+
 				<p:outputLabel for="rua" value="RUA:" />
 				<p:inputText id="rua" maxlength="50" size="30"
 					value="#{pessoaBean.pessoa.rua}" required="true"
@@ -138,17 +161,6 @@
 					value="#{pessoaBean.pessoa.email}" required="true"
 					requiredMessage="O campo 'E-Mail' é obrigatório" />
 
-				<p:outputLabel for="cidade" value="Cidade:" />
-				<p:selectOneMenu id="cidade" filter="true"
-					value="#{pessoaBean.pessoa.cidade}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Cidade' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione uma Cidade" />
-					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
-						itemValue="#{cidade}"
-						itemLabel="#{cidade.nome}" />
-				</p:selectOneMenu>
 
 
 			</h:panelGrid>

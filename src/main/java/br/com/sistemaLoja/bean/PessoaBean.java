@@ -1,6 +1,7 @@
 package br.com.sistemaLoja.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +12,10 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Cidade;
+import br.com.sistemaLoja.domain.Estado;
 import br.com.sistemaLoja.domain.Pessoa;
 import br.com.sistemaloja.dao.CidadeDao;
+import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.PessoaDao;
 
 @SuppressWarnings("serial")
@@ -22,6 +25,7 @@ public class PessoaBean implements Serializable {
 
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
+	private List<Estado> estados;
 	private List<Cidade> cidades;
 
 	@PostConstruct
@@ -34,8 +38,7 @@ public class PessoaBean implements Serializable {
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoas = pessoaDao.listar();
 
-			CidadeDao cidadeDao = new CidadeDao();
-			cidades = cidadeDao.listar();
+			
 
 		} catch (RuntimeException erro) {
 
@@ -51,11 +54,15 @@ public class PessoaBean implements Serializable {
 
 			pessoa = new Pessoa();
 
-			CidadeDao cidadeDao = new CidadeDao();
-			cidades = cidadeDao.listar();
+			EstadoDao estadoDao = new EstadoDao();
+			estados = estadoDao.listar();
+			
+			cidades = new ArrayList<Cidade>();
+			
 
-		} catch (RuntimeException erro) {System.out.println("#############");
-		System.out.println("#############");
+		} catch (RuntimeException erro) {
+			System.out.println("#############");
+			System.out.println("#############");
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar uma nova Pessoa");
 			erro.printStackTrace();
@@ -66,22 +73,21 @@ public class PessoaBean implements Serializable {
 
 		System.out.println("#############");
 		System.out.println("#############");
-		System.out.println("Nome: "+pessoa.getNome());
-		System.out.println("cpf: "+pessoa.getCpf());
-		System.out.println("rg: "+pessoa.getRg());
-		System.out.println("rua: "+pessoa.getRua());
-		System.out.println("numero: "+pessoa.getNumero());
-		System.out.println("bairro: "+pessoa.getBairro());
-		System.out.println("cep: "+pessoa.getCep());
-		System.out.println("complemento: "+pessoa.getComplemento());
-		System.out.println("telefone: "+pessoa.getTelefone());
-		System.out.println("celular: "+pessoa.getCelular());
-		System.out.println("email: "+pessoa.getEmail());
-		System.out.println("cidade: "+pessoa.getCidade().getNome());
+		System.out.println("Nome: " + pessoa.getNome());
+		System.out.println("cpf: " + pessoa.getCpf());
+		System.out.println("rg: " + pessoa.getRg());
+		System.out.println("rua: " + pessoa.getRua());
+		System.out.println("numero: " + pessoa.getNumero());
+		System.out.println("bairro: " + pessoa.getBairro());
+		System.out.println("cep: " + pessoa.getCep());
+		System.out.println("complemento: " + pessoa.getComplemento());
+		System.out.println("telefone: " + pessoa.getTelefone());
+		System.out.println("celular: " + pessoa.getCelular());
+		System.out.println("email: " + pessoa.getEmail());
+		System.out.println("cidade: " + pessoa.getCidade().getNome());
 		System.out.println("#############");
 		System.out.println("#############");
-		
-		
+
 		try {
 
 			PessoaDao pessoaDao = new PessoaDao();
@@ -91,6 +97,8 @@ public class PessoaBean implements Serializable {
 			pessoa = new Pessoa();
 
 			pessoas = pessoaDao.listar();
+			
+			novo();
 
 			Messages.addGlobalInfo("Pessoa salva com sucesso");
 
@@ -149,6 +157,14 @@ public class PessoaBean implements Serializable {
 
 	public List<Pessoa> getPessoas() {
 		return pessoas;
+	}
+
+	public List<Estado> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
 	}
 
 	public void setPessoas(List<Pessoa> pessoas) {
