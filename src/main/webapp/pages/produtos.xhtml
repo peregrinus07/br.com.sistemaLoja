@@ -10,11 +10,13 @@
 	<title>Produtos</title>
 </h:head>
 <body>
-	<h:form>
+	<p:growl id="mensagem" />
+	<h:form id="formListaProdutos">
 		<p:panel header="Produtos - Listagem">
 
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{ProdutoBean.produtos}" var="produto"
+				rows="5">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
@@ -25,16 +27,31 @@
 
 				</f:facet>
 
-				<p:column headerText="Descrição" sortBy="" filterBy=""></p:column>
+				<p:column headerText="Nome" sortBy="#{produto.nome}"
+					filterBy="#{produto.nome}">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
 
-				<p:column headerText="Quantidade"></p:column>
+				<p:column headerText="Descrição" sortBy="#{produto.descricao}"
+					filterBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
 
-				<p:column headerText="Fabricante"></p:column>
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}"
+					filterBy="#{produto.quantidade}">
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Fabricante" sortBy="#{produto.fabricante}"
+					filterBy="#{produto.fabricante}">
+					<h:outputText value="#{produto.fabricante.nome}" />
+				</p:column>
 
 				<p:column headerText="Opções">
+ 
+				 
 
 
-					 
 
 
 				</p:column>
@@ -46,31 +63,50 @@
 
 	<p:dialog header="Produtos - Cadastros" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="formCadastro">
+
+			<h:panelGrid id="painel" columns="2">
+
+				<p:outputLabel value="Nome: " />
+				<p:inputText size="30" maxlength="50"
+					value="#{ProdutoBean.produto.nome}" />
+
 				<p:outputLabel value="Descrição: " />
-				<p:inputText size="30" maxlength="50" />
+				<p:inputText size="30" maxlength="50"
+					value="#{ProdutoBean.produto.descricao}" />
 
 				<p:outputLabel value="Quantidade: " />
-				<p:inputText size="10" maxlength="5" />
+				<p:inputText size="30" maxlength="50"
+					value="#{ProdutoBean.produto.quantidade}" />
 
 				<p:outputLabel value="Preço: " />
-				<p:inputText size="10" maxlength="7" />
+				<p:inputText size="10" maxlength="7"
+					value="#{ProdutoBean.produto.preco}" />
 
 				<p:outputLabel value="Fabricante: " />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione um Fabricante" />
+				<p:selectOneMenu id="fabricante" filter="true"
+					value="#{ProdutoBean.produto.fabricante}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'Fabricante' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Fabricante" />
+					<f:selectItems value="#{ProdutoBean.fabricantes}" var="fabricante"
+						itemValue="#{fabricante}" itemLabel="#{fabricante.nome}" />
 				</p:selectOneMenu>
+
+
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Salvar"
+					update=":mensagem :formListaProdutos:tabela :formCadastro:painel"
+					actionListener="#{ProdutoBean.salvar}" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
+					actionListener="#{ProdutoBean.salvar}" />
+
 
 			</h:panelGrid>
-
-
 
 		</h:form>
 	</p:dialog>

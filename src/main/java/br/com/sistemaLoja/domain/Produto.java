@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 @Entity(name = "tb_produto")
 public class Produto extends GenericDomain {
 
+	
+	@Column(length = 50, nullable = false)
+	private String nome;
+	
 	@Column(length = 100, nullable = false)
 	private String descricao;
 
@@ -23,6 +27,14 @@ public class Produto extends GenericDomain {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
+ 	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public String getDescricao() {
 		return descricao;
