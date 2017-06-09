@@ -121,8 +121,6 @@ public class CidadeBean implements Serializable {
 
 			cidade.setCodigo(cidadeEditar.getCodigo());
 
-			 
-
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma cidade");
@@ -130,8 +128,6 @@ public class CidadeBean implements Serializable {
 		}
 
 	}
-
-	 
 
 	public Cidade getCidadeEditar() {
 		return cidadeEditar;
