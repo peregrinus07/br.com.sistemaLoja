@@ -1,14 +1,12 @@
 package br.com.sistemaLoja.bean;
 
-import javax.faces.event.ActionEvent;
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-
+import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Cidade;
@@ -18,9 +16,11 @@ import br.com.sistemaloja.dao.EstadoDao;
 
 @SuppressWarnings("serial")
 @ManagedBean
+@ViewScoped
 public class CidadeBean implements Serializable {
 
 	private Cidade cidade;
+	private Cidade cidadeEditar;
 	private List<Cidade> cidades;
 	private List<Estado> estados;
 
@@ -59,22 +59,18 @@ public class CidadeBean implements Serializable {
 
 	public void salvar() throws Exception {
 
-		teste();
-
-		System.out.println("Metodo salvar");
+	  
 		try {
-
-			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
-			System.out.println("Estado: " + cidade.getEstado().getNome());
-
+ 
 			CidadeDao cidadeDao = new CidadeDao();
-			cidadeDao.salvar(cidade);
+			cidadeDao.merge(cidade);
 
-			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
-			System.out.println("Estado: " + cidade.getEstado().getNome());
+		 
 
 			// limpando os objetos
 			cidade = new Cidade();
+
+			cidades = cidadeDao.listar();
 
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
@@ -99,6 +95,7 @@ public class CidadeBean implements Serializable {
 
 			// limpando os objetos
 			cidade = new Cidade();
+			cidades = cidadeDao.listar();
 
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
@@ -116,17 +113,19 @@ public class CidadeBean implements Serializable {
 
 		try {
 
-			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionado");
+			cidade = new Cidade();
 
-			System.out.println("Metodo editar");
-			System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade:" + cidade.getCodigo());
-			System.out.println("Estado: " + cidade.getEstado().getNome());
+			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
 
-			
-			 
-			
+			cidadeEditar = cidade;
+
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
+
+			cidade.setCodigo(cidadeEditar.getCodigo());
+
+			teste();
+
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma cidade");
@@ -134,13 +133,23 @@ public class CidadeBean implements Serializable {
 		}
 
 	}
- 
+
 	public void teste() {
 
-		System.out.println("Metodo teste id da cidade");
-		System.out.println("Cidade: " + cidade.getNome() + " Id da Cidade: " + cidade.getCodigo());
-		System.out.println("Estado: " + cidade.getEstado().getNome());
+		System.out.println("#########");
+		System.out.println("#########");
+		System.out.println("ID Editar: " + getCidadeEditar().getCodigo());
+		System.out.println("ID Cidade: " + cidade.getCodigo());
+		System.out.println("#########");
+		System.out.println("#########");
+	}
 
+	public Cidade getCidadeEditar() {
+		return cidadeEditar;
+	}
+
+	public void setCidadeEditar(Cidade cidadeEditar) {
+		this.cidadeEditar = cidadeEditar;
 	}
 
 	public Cidade getCidade() {
