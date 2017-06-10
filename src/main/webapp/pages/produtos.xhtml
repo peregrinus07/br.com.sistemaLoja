@@ -138,9 +138,17 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel for="foto" value="Foto: " />
-				<p:fileUpload id="foto" mode="advanced"
-					fileUploadListener="#{ProdutoBean.upLoad}" update=":mensagem"
-					auto="true" />
+				<p:fileUpload id="foto" mode="advanced" label="Escolher"
+					uploadLabel="Enviar" cancelLabel="Cancelar"
+					fileUploadListener="#{ProdutoBean.upLoad}"
+					allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+					invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
+					fileLimit="1"
+					fileLimitMessage="Só é possível escolher 1	 arquivos por vez."
+					onstart="console.log('Iniciando envio de arquivo')"
+					onerror="console.log('Erro na requisição de envio')"
+					oncomplete="console.log('Envio concluído')" update=":mensagem"
+					  />
 
 			</h:panelGrid>
 

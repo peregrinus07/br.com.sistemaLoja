@@ -1,6 +1,11 @@
 package br.com.sistemaLoja.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +15,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.sistemaLoja.domain.Fabricante;
 import br.com.sistemaLoja.domain.Produto;
@@ -127,18 +133,29 @@ public class ProdutoBean implements Serializable {
 		}
 
 	}
-	
-	public void upLoad (FileUploadEvent evento) {
-		
-		System.out.println("TESTe upload");
-		
-		
-		String nome = evento.getFile().getFileName();
-		
-		System.out.println("Nome: "+nome);
-		
+
+	public void upLoad(FileUploadEvent evento) {
+
+		try {
+
+			UploadedFile arquivoUload = evento.getFile();
+			 
+			 
+			Path caminho = Paths.get("/home/tibe/teste");
+			 
+			
+		    Path arquivoTemp = Files.createTempFile(caminho, null,null);		    		
+			
+			
+			Files.copy(arquivoUload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de um arquivo");
+			e.printStackTrace();
+		}
+
 	}
-	
 
 	public Produto getProduto() {
 		return produto;
