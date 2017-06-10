@@ -22,8 +22,7 @@ import br.com.sistemaloja.dao.UsuarioDao;
 public class UsuarioBean implements Serializable {
 
 	private Usuario usuario;
-	private List<Pessoa> pessoas;
-	private  Vector listaTiposDeUsuarios;
+	private List<Pessoa> pessoas;	 
 	private List<Usuario> usuarios;
 
 	@PostConstruct
@@ -44,16 +43,7 @@ public class UsuarioBean implements Serializable {
 
 	}
 	
-	public void listaTiposDeUsuarios () {
-		
-		 
-		
-		 listaTiposDeUsuarios = new Vector<>();  
-		
-		 listaTiposDeUsuarios.add("A");
-		 listaTiposDeUsuarios.add("B");
-		 listaTiposDeUsuarios.add("C");
-	}
+ 
 	
 	
 
@@ -82,6 +72,7 @@ System.out.println("TESTE");
 		System.out.println("Nome: " + usuario.getPessoa().getNome());
 		System.out.println("Senha: " + usuario.getSenha());
 		System.out.println("Ativo: " + usuario.getAtivo());
+		System.out.println("Tipo: " + usuario.getTipo());
 		System.out.println("cpf: " + usuario.getPessoa().getCpf());
 		System.out.println("rg: " + usuario.getPessoa().getRg());
 		System.out.println("rua: " + usuario.getPessoa().getRua());
@@ -137,20 +128,22 @@ System.out.println("TESTE");
 
 	}
 
-	public void editar(ActionEvent evento) {
+	public void editar(ActionEvent evento) throws Exception {
 
 		try {
 
 			usuario = new Usuario();
 
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
-
+ 
+			System.out.println("Usuario senha: "+usuario.getSenha());
+			
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoas = pessoaDao.listar("nome");
 
 		} catch (RuntimeException erro) {
 
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma usuario");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um usuario");
 			erro.printStackTrace();
 		}
 
@@ -168,15 +161,6 @@ System.out.println("TESTE");
 		return pessoas;
 	}
 	
-	
-
-	public Vector getListaTiposDeUsuarios() {
-		return listaTiposDeUsuarios;
-	}
-
-	public void setListaTiposDeUsuarios(Vector listaTiposDeUsuarios) {
-		this.listaTiposDeUsuarios = listaTiposDeUsuarios;
-	}
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
