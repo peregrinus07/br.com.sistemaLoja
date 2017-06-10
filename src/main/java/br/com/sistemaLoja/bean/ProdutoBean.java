@@ -67,6 +67,13 @@ public class ProdutoBean implements Serializable {
 	public void salvar() throws Exception {
 
 		try {
+			
+			if(produto.getCaminho() == null){
+				
+				Messages.addGlobalInfo("O campo foto é obrigatório");
+				
+				return;
+			}
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			Produto produtoRetorno =  ProdutoDao.merge(produto);
@@ -104,6 +111,11 @@ public class ProdutoBean implements Serializable {
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			ProdutoDao.excluir(produto);
+			
+			Path delete = Paths.get("/home/tibe/upload/"+ produto.getCodigo() +".png");
+			 
+			
+			Files.deleteIfExists(delete);
 
 			// limpando os objetos
 			produto = new Produto();
@@ -114,9 +126,10 @@ public class ProdutoBean implements Serializable {
 
 			Messages.addGlobalInfo("Produto excluido com sucesso");
 
-		} catch (RuntimeException e) {
+		} catch (RuntimeException | IOException e) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir");
+			e.printStackTrace();
 		}
 
 	}
@@ -128,7 +141,8 @@ public class ProdutoBean implements Serializable {
 			produto = new Produto();
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
-
+			produto.setCaminho("/home/tibe/upload/" + produto.getCodigo() +".png" ); 
+ 
 			FabricanteDao FabricanteDao = new FabricanteDao();
 			fabricantes = FabricanteDao.listar();
 
