@@ -25,6 +25,7 @@ public class PessoaBean implements Serializable {
 
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
+	private Estado estado;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
 
@@ -37,8 +38,6 @@ public class PessoaBean implements Serializable {
 
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoas = pessoaDao.listar();
-
-			
 
 		} catch (RuntimeException erro) {
 
@@ -56,9 +55,8 @@ public class PessoaBean implements Serializable {
 
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
-			
+
 			cidades = new ArrayList<Cidade>();
-			
 
 		} catch (RuntimeException erro) {
 			System.out.println("#############");
@@ -71,22 +69,7 @@ public class PessoaBean implements Serializable {
 
 	public void salvar() throws Exception {
 
-		System.out.println("#############");
-		System.out.println("#############");
-		System.out.println("Nome: " + pessoa.getNome());
-		System.out.println("cpf: " + pessoa.getCpf());
-		System.out.println("rg: " + pessoa.getRg());
-		System.out.println("rua: " + pessoa.getRua());
-		System.out.println("numero: " + pessoa.getNumero());
-		System.out.println("bairro: " + pessoa.getBairro());
-		System.out.println("cep: " + pessoa.getCep());
-		System.out.println("complemento: " + pessoa.getComplemento());
-		System.out.println("telefone: " + pessoa.getTelefone());
-		System.out.println("celular: " + pessoa.getCelular());
-		System.out.println("email: " + pessoa.getEmail());
-		System.out.println("cidade: " + pessoa.getCidade().getNome());
-		System.out.println("#############");
-		System.out.println("#############");
+		 
 
 		try {
 
@@ -95,9 +78,9 @@ public class PessoaBean implements Serializable {
 
 			// limpando os objetos
 			pessoa = new Pessoa();
-
+			 
 			pessoas = pessoaDao.listar();
-			
+
 			novo();
 
 			Messages.addGlobalInfo("Pessoa salva com sucesso");
@@ -147,6 +130,29 @@ public class PessoaBean implements Serializable {
 
 	}
 
+	public void popularCidades() throws Exception {
+
+		try { 
+			
+			if(estado != null) {
+
+				CidadeDao cidadeDao = new CidadeDao();
+				cidades = cidadeDao.buscarPorEstado(estado.getCodigo());
+				System.out.println(cidades.size());
+			} else {
+				
+				cidades = new ArrayList<>();
+				
+			}
+
+		} catch (RuntimeException erro) {
+
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar filtrar as Cidades");
+			erro.printStackTrace();
+		}
+
+	}
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -157,6 +163,14 @@ public class PessoaBean implements Serializable {
 
 	public List<Pessoa> getPessoas() {
 		return pessoas;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	public List<Estado> getEstados() {
