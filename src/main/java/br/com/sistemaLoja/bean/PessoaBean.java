@@ -55,7 +55,7 @@ public class PessoaBean implements Serializable {
 
 			EstadoDao estadoDao = new EstadoDao();
 			estados = estadoDao.listar();
-
+			estado = new Estado();	
 			cidades = new ArrayList<Cidade>();
 
 		} catch (RuntimeException erro) {
@@ -69,7 +69,22 @@ public class PessoaBean implements Serializable {
 
 	public void salvar() throws Exception {
 
-		 
+		System.out.println("#############");
+		System.out.println("#############");
+		System.out.println("Nome: " + pessoa.getNome());
+		System.out.println("cpf: " + pessoa.getCpf());
+		System.out.println("rg: " + pessoa.getRg());
+		System.out.println("rua: " + pessoa.getRua());
+		System.out.println("numero: " + pessoa.getNumero());
+		System.out.println("bairro: " + pessoa.getBairro());
+		System.out.println("cep: " + pessoa.getCep());
+		System.out.println("complemento: " + pessoa.getComplemento());
+		System.out.println("telefone: " + pessoa.getTelefone());
+		System.out.println("celular: " + pessoa.getCelular());
+		System.out.println("email: " + pessoa.getEmail());
+		System.out.println("cidade: " + pessoa.getCidade().getNome());
+		System.out.println("#############");
+		System.out.println("#############");
 
 		try {
 
@@ -80,7 +95,7 @@ public class PessoaBean implements Serializable {
 			pessoa = new Pessoa();
 			 
 			pessoas = pessoaDao.listar();
-
+			
 			novo();
 
 			Messages.addGlobalInfo("Pessoa salva com sucesso");
@@ -96,8 +111,10 @@ public class PessoaBean implements Serializable {
 
 		try {
 
-			pessoa = (Pessoa) evento.getComponent().getAttributes().get("PessoaSelecionada");
+			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 
+			 
+			
 			PessoaDao PessoaDao = new PessoaDao();
 			PessoaDao.excluir(pessoa);
 
@@ -121,6 +138,8 @@ public class PessoaBean implements Serializable {
 			pessoa = new Pessoa();
 
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
+			
+			 System.out.println("Pessoa: "+pessoa.getCidade().getEstado().getCodigo());
 
 		} catch (RuntimeException erro) {
 

@@ -99,13 +99,15 @@
 					requiredMessage="O campo 'CPF' é obrigatório" />
 
 				<p:outputLabel for="estado" value="Estado:" />
-				<p:selectOneMenu id="estado" filter="true" value="#{pessoaBean.estado}"
-					converter="omnifaces.SelectItemsConverter" >
+				<p:selectOneMenu id="estado" filter="true"
+					value="#{pessoaBean.estado}"
+					converter="omnifaces.SelectItemsConverter">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma Cidade" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estado"
 						itemValue="#{estado}" itemLabel="#{estado.nome}" />
-						<p:ajax listener="#{pessoaBean.popularCidades}" update=":formCadastro:cidade" />
+					<p:ajax listener="#{pessoaBean.popularCidades}"
+						update=":formCadastro:cidade" />
 				</p:selectOneMenu>
 
 
@@ -152,7 +154,9 @@
 					requiredMessage="O campo 'Telefone' é obrigatório" />
 
 				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputMask id="celular" mask="(99)9.9999-9999" />
+				<p:inputMask id="celular" mask="(99)9.9999-9999"
+					value="#{pessoaBean.pessoa.celular}" required="true"
+					requiredMessage="O campo 'Celular' é obrigatório" />
 
 				<p:outputLabel for="email" value="E-Mail:" />
 				<p:inputText id="email" maxlength="50" size="30"
