@@ -27,7 +27,7 @@ public class CidadeDaoTest {
 
 	}
 
-	@Test	
+	@Test
 	@Ignore
 	public void listar() {
 
@@ -64,6 +64,23 @@ public class CidadeDaoTest {
 
 		cidadeDao.excluir(cidade);
 
+	}
+	
+	@Test
+	public void buscarPorEstado() throws Exception {
+
+		Long estadoCodigo =8l;
+		
+		CidadeDao cidadeDao = new CidadeDao();
+
+		List<Cidade> resultado = cidadeDao.buscarPorEstado(estadoCodigo);
+
+		for (Cidade cidade : resultado) {
+
+			System.out.println("Codigo: " + cidade.getCodigo() + " " + "Cidade: " + cidade.getNome() + " " + "Estado: "
+					+ cidade.getEstado().getNome());
+
+		}
 	}
 
 }
