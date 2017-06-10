@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
 
 import br.com.sistemaLoja.domain.Fabricante;
 import br.com.sistemaLoja.domain.Produto;
@@ -16,7 +17,7 @@ import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.ProdutoDao;
 
 @SuppressWarnings("serial")
-@ManagedBean (name ="ProdutoBean")
+@ManagedBean(name = "ProdutoBean")
 @ViewScoped
 public class ProdutoBean implements Serializable {
 
@@ -84,7 +85,7 @@ public class ProdutoBean implements Serializable {
 	public void excluir(ActionEvent evento) throws Exception {
 
 		System.out.println("Persevere!!!");
-		
+
 		try {
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
@@ -126,6 +127,18 @@ public class ProdutoBean implements Serializable {
 		}
 
 	}
+	
+	public void upLoad (FileUploadEvent evento) {
+		
+		System.out.println("TESTe upload");
+		
+		
+		String nome = evento.getFile().getFileName();
+		
+		System.out.println("Nome: "+nome);
+		
+	}
+	
 
 	public Produto getProduto() {
 		return produto;
