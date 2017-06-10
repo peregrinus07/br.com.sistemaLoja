@@ -88,19 +88,15 @@ public class ClienteBean implements Serializable {
 
 		try {
 
-			cliente = (cliente) evento.getComponent().getAttributes().get("clienteSelecionada");
+			cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
 
-			clienteDao clienteDao = new clienteDao();
+			ClienteDao clienteDao = new ClienteDao();
 			clienteDao.excluir(cliente);
 
 			// limpando os objetos
-			cliente = new cliente();
+			novo();
 			clientes = clienteDao.listar();
-
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
-
-			Messages.addGlobalInfo("cliente excluida com sucesso");
+			Messages.addGlobalInfo("cliente excluido com sucesso");
 
 		} catch (RuntimeException e) {
 
@@ -113,16 +109,14 @@ public class ClienteBean implements Serializable {
 
 		try {
 
-			cliente = new cliente();
+			cliente = new Cliente();
 
-			cliente = (cliente) evento.getComponent().getAttributes().get("clienteSelecionada");
-
-			clienteEditar = cliente;
-
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
-
-			cliente.setCodigo(clienteEditar.getCodigo());
+			cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+  
+			PessoaDao pessoaDao = new PessoaDao();
+			pessoas = pessoaDao.listar("nome");
+			
+		 
 
 		} catch (RuntimeException erro) {
 
