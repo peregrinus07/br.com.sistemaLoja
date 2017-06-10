@@ -92,7 +92,7 @@
 	</h:form>
 
 	<p:dialog header="Produtos - Cadastros" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true">
+		draggable="true" resizable="false" modal="true">
 		<h:form id="formCadastro" enctype="multipart/form-data">
 
 			<h:panelGrid id="painel" columns="2">
@@ -147,11 +147,15 @@
 					fileLimitMessage="Só é possível escolher 1	 arquivos por vez."
 					onstart="console.log('Iniciando envio de arquivo')"
 					onerror="console.log('Erro na requisição de envio')"
-					oncomplete="console.log('Envio concluído')" update=":mensagem"
-					  />
+					oncomplete="console.log('Envio concluído')" update=":mensagem" />
+
+				<p:outputLabel value="Imagem:" />
+				<p:graphicImage value="#{imagemBean.foto}" width="50" height="50">
+					<f:param name="caminho" value="#{ProdutoBean.produto.caminho}" />
+				</p:graphicImage>
 
 			</h:panelGrid>
-
+	
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					update=":mensagem :formListaProdutos:tabela :formCadastro:painel"

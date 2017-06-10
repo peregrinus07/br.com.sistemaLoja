@@ -67,25 +67,25 @@ public class ProdutoBean implements Serializable {
 	public void salvar() throws Exception {
 
 		try {
-			
-			if(produto.getCaminho() == null){
-				
+
+			if (produto.getCaminho() == null) {
+
 				Messages.addGlobalInfo("O campo foto é obrigatório");
-				
+
 				return;
 			}
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
-			Produto produtoRetorno =  ProdutoDao.merge(produto);
+			Produto produtoRetorno = ProdutoDao.merge(produto);
 
 			Path origem = Paths.get(produto.getCaminho());
-			Path destino = Paths.get("/home/tibe/upload/" + produtoRetorno.getCodigo() +".png" );
-			
+			Path destino = Paths.get("/home/tibe/upload/" + produtoRetorno.getCodigo() + ".png");
+
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
-			
+
 			// limpando os objetos
 			produto = new Produto();
- 
+
 			produtos = ProdutoDao.listar();
 
 			FabricanteDao FabricanteDao = new FabricanteDao();
@@ -111,10 +111,9 @@ public class ProdutoBean implements Serializable {
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			ProdutoDao.excluir(produto);
-			
-			Path delete = Paths.get("/home/tibe/upload/"+ produto.getCodigo() +".png");
-			 
-			
+
+			Path delete = Paths.get("/home/tibe/upload/" + produto.getCodigo() + ".png");
+
 			Files.deleteIfExists(delete);
 
 			// limpando os objetos
@@ -141,8 +140,8 @@ public class ProdutoBean implements Serializable {
 			produto = new Produto();
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
-			produto.setCaminho("/home/tibe/upload/" + produto.getCodigo() +".png" ); 
- 
+			produto.setCaminho("/home/tibe/upload/" + produto.getCodigo() + ".png");
+
 			FabricanteDao FabricanteDao = new FabricanteDao();
 			fabricantes = FabricanteDao.listar();
 
@@ -159,17 +158,17 @@ public class ProdutoBean implements Serializable {
 		try {
 
 			UploadedFile arquivoUload = evento.getFile();
-			 			 
+
 			Path caminho = Paths.get("/home/tibe/teste");
-			 			
-		    Path arquivoTemp = Files.createTempFile(caminho, null,null);		    		
-						
+
+			Path arquivoTemp = Files.createTempFile(caminho, null, null);
+
 			Files.copy(arquivoUload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
 
 			produto.setCaminho(arquivoTemp.toString());
-			
+
 			Messages.addGlobalInfo("Upload realizado com sucesso!");
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de um arquivo");
