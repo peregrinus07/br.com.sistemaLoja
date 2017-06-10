@@ -79,7 +79,7 @@
 	</h:form>
 
 	<!-- Janela Nova pessoa -->
-	<p:dialog header="pessoas - Cadastro" widgetVar="dialogo"
+	<p:dialog header="Pessoa - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
@@ -94,14 +94,14 @@
 					requiredMessage="O campo 'RG' é obrigatório" />
 
 				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputText id="cpf" maxlength="50" size="30"
+				<p:inputMask id="cpf" mask="999.999-99" size="10"
 					value="#{pessoaBean.pessoa.cpf}" required="true"
 					requiredMessage="O campo 'CPF' é obrigatório" />
 
 				<p:outputLabel for="estado" value="Estado:" />
-				<p:selectOneMenu id="estado" filter="true"					 
+				<p:selectOneMenu id="estado" filter="true"
 					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Cidade' é obrigatório">
+					requiredMessage="O campo 'Estado' é obrigatório">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma Cidade" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estado"
@@ -152,9 +152,7 @@
 					requiredMessage="O campo 'Telefone' é obrigatório" />
 
 				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputText id="celular" maxlength="50" size="30"
-					value="#{pessoaBean.pessoa.celular}" required="true"
-					requiredMessage="O campo 'Celular' é obrigatório" />
+				<p:inputMask id="celular" mask="(99)9.9999-9999" />
 
 				<p:outputLabel for="email" value="E-Mail:" />
 				<p:inputText id="email" maxlength="50" size="30"
