@@ -15,29 +15,32 @@
 	<h:form id="formClientes">
 		<p:panel header="Clientes - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{clienteBean.clientes}"
-				var="cliente" rows="5">
+				paginator="true" value="#{clienteBean.clientes}" var="cliente"
+				rows="5">
 
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{clienteBean.novo}"
+						update=":mensagem :formCadastro:painel" />
 				</f:facet>
 
 				<p:column headerText="Nome">
-			 	<h:outputText value="#{cliente.pessoa.nome}" />
+					<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="CPF">
-				<h:outputText value="#{cliente.pessoa.cpf}" />
+					<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 
 				<p:column headerText="Data de Cadastro">
-				<h:outputText value="#{cliente.dataCadastro}" >
-					<f:convertDateTime locale="pt_BR"/>
-				</h:outputText>
+					<h:outputText value="#{cliente.dataCadastro}">
+						<f:convertDateTime locale="pt_BR" />
+					</h:outputText>
 				</p:column>
-  
+
 				<p:column headerText="Liberado">
-					<p:selectBooleanCheckbox value="#{cliente.liberado}" disabled="true" />
+					<p:selectBooleanCheckbox value="#{cliente.liberado}"
+						disabled="true" />
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -50,9 +53,9 @@
 	<!-- Formulário de Cadastro -->
 	<p:dialog header="Clientes - Cadastros" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true">
-		<h:form>
+		<h:form id="formCadastro">
 
-			<h:panelGrid columns="2">
+			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel value="Pessoa" />
 
 				<p:selectOneMenu filter="true">

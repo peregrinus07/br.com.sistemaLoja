@@ -11,8 +11,10 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Cliente;
+import br.com.sistemaLoja.domain.Pessoa;
 import br.com.sistemaloja.dao.ClienteDao;
 import br.com.sistemaloja.dao.EstadoDao;
+import br.com.sistemaloja.dao.PessoaDao;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "clienteBean")
@@ -20,6 +22,7 @@ import br.com.sistemaloja.dao.EstadoDao;
 public class ClienteBean implements Serializable {
 
 	private Cliente cliente;
+	private List<Pessoa> pessoas;
 
 	private List<Cliente> clientes;
 
@@ -45,8 +48,12 @@ public class ClienteBean implements Serializable {
 
 		try {
 
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar("nome");
+				cliente = new Cliente();
+				PessoaDao pessoaDao = new PessoaDao();
+				
+				pessoas = pessoaDao.listar("nome");
+						
+			
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar uma nova cliente");
@@ -132,6 +139,14 @@ public class ClienteBean implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
 	public List<Cliente> getClientes() {
