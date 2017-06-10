@@ -10,28 +10,34 @@
 	<title>Clientes</title>
 </h:head>
 <body>
-	<h:form>
+
+	<p:growl id="mensagem" />
+	<h:form id="formClientes">
 		<p:panel header="Clientes - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{clienteBean.clientes}"
+				var="cliente" rows="5">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
 				</f:facet>
 
 				<p:column headerText="Nome">
+			 	<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="CPF">
+				<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Data de Cadastro">
+				<h:outputText value="#{cliente.dataCadastro}" >
+					<f:convertDateTime locale="pt_BR"/>
+				</h:outputText>
 				</p:column>
-
-				<p:column headerText="Dada de Cadastro">
-				</p:column>
-
+  
 				<p:column headerText="Liberado">
+					<p:selectBooleanCheckbox value="#{cliente.liberado}" disabled="true" />
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -48,14 +54,14 @@
 
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Pessoa" />
-				
+
 				<p:selectOneMenu filter="true">
 					<f:selectItem itemValue="" itemLabel="Selecione uma pessoa" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Data de Cadastro:" />
-				<p:calendar  />
-				
+				<p:calendar />
+
 				<p:outputLabel value="Ativo:" />
 				<p:selectBooleanCheckbox />
 
