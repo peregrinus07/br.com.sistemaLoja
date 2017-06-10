@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.sistemaloja.util.HibernetUtil;
@@ -64,6 +65,29 @@ public class GenericDao<Entidade> {
 			Session sessao = conexao.getFabrica().openSession();
 
 			Criteria consulta = sessao.createCriteria(classe);
+			List<Entidade> resultado = consulta.list();
+			return resultado;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			return null;
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Entidade> listar(String campoOrdenacao) {
+
+		HibernetUtil conexao;
+		try {
+
+			conexao = new HibernetUtil();
+			Session sessao = conexao.getFabrica().openSession();
+
+			Criteria consulta = sessao.createCriteria(classe);
+			consulta.addOrder(Order.asc(campoOrdenacao));
 			List<Entidade> resultado = consulta.list();
 			return resultado;
 
