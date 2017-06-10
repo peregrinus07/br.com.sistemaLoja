@@ -65,16 +65,15 @@ public class ClienteBean implements Serializable {
 
 		try {
 
-			clienteDao clienteDao = new clienteDao();
+			ClienteDao clienteDao = new ClienteDao();
 			clienteDao.merge(cliente);
 
 			// limpando os objetos
-			cliente = new cliente();
+			cliente = new Cliente();
 
 			clientes = clienteDao.listar();
 
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
+			novo();
 
 			Messages.addGlobalInfo("cliente salva com sucesso");
 
