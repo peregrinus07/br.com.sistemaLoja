@@ -131,7 +131,7 @@ public class PessoaBean implements Serializable {
 
 	}
 
-	public void editar(ActionEvent evento) {
+	public void editar(ActionEvent evento) throws Exception {
 
 		try {
 
@@ -139,8 +139,18 @@ public class PessoaBean implements Serializable {
 
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 			
-			 System.out.println("Pessoa: "+pessoa.getCidade().getEstado().getCodigo());
+			System.out.println("Pessoa: "+pessoa.getCidade().getEstado().getNome());
 
+			EstadoDao estadoDao = new EstadoDao();
+			estados = estadoDao.listar();
+			 
+			estado = pessoa.getCidade().getEstado();
+			CidadeDao cidadeDao = new CidadeDao();
+			cidades = cidadeDao.buscarPorEstado(estado.getCodigo());
+			
+			
+			 
+			 
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma Pessoa");
