@@ -187,7 +187,8 @@ public class GenericDao<Entidade> {
 
 	}
 
-	public void merge(Entidade entidade) throws Exception {
+	@SuppressWarnings("unchecked")
+	public Entidade merge(Entidade entidade) throws Exception {
 
 		HibernetUtil conexao = new HibernetUtil();
 
@@ -198,9 +199,11 @@ public class GenericDao<Entidade> {
 		try {
 
 			transacao = sessao.beginTransaction();
-			sessao.merge(entidade);
-
+			Entidade retorno = (Entidade) sessao.merge(entidade);
+ 
 			transacao.commit();
+			
+			return retorno;
 
 		} catch (RuntimeException erro) {
 
