@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity(name = "tb_usuario")
@@ -34,6 +35,27 @@ public class Usuario extends GenericDomain {
 		return tipo;
 	}
 
+	@Transient
+	public String getTipoFormatado() {
+
+		String tipoFormatado = null;
+
+		if (tipo == 'A') {
+
+			tipoFormatado = "Administrador";
+		} else if (tipo == 'B') {
+
+			tipoFormatado = "Balconista";
+
+		} else if (tipo == 'G') {
+
+			tipoFormatado = "Gerente";
+		}
+
+		return tipoFormatado;
+
+	}
+
 	public void setTipo(Character tipo) {
 		this.tipo = tipo;
 	}
@@ -54,6 +76,4 @@ public class Usuario extends GenericDomain {
 		this.pessoa = pessoa;
 	}
 
-	
-	
 }
