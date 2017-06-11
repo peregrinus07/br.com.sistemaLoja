@@ -15,6 +15,7 @@ import br.com.sistemaLoja.domain.Cidade;
 import br.com.sistemaLoja.domain.Estado;
 import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
+import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.dao.CidadeDao;
 import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.FabricanteDao;
@@ -25,6 +26,8 @@ import br.com.sistemaloja.dao.ProdutoDao;
 @ViewScoped
 public class VendaBean implements Serializable {
 
+	private Venda venda;
+
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 
@@ -32,6 +35,9 @@ public class VendaBean implements Serializable {
 	public void listar() {
 
 		try {
+
+			venda = new Venda();
+			venda.setPrecoTotal(new BigDecimal("0.00"));
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			produtos = ProdutoDao.listar("descricao");
@@ -75,42 +81,44 @@ public class VendaBean implements Serializable {
 
 		}
 
+		calcularPrecoTotal();
+
 	}
 
 	public void removerProduto(ActionEvent evento) {
 
 		ItemVenda itemVenda = (ItemVenda) evento.getComponent().getAttributes().get("itemSelecionado");
-		
+
 		int achou = -1;
-		
-		for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
-			
-			if(itensVenda.get(posicao).getProduto().equals(itemVenda.getProduto())){
-				
-				achou = posicao; 	
+
+		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+
+			if (itensVenda.get(posicao).getProduto().equals(itemVenda.getProduto())) {
+
+				achou = posicao;
 			}
 		}
-		
-		if(achou > -1) {
-			
+
+		if (achou > -1) {
+
 			itensVenda.remove(achou);
-			
 		}
 		
-		
+		calcularPrecoTotal();
 	}
 
-	public void novo() {
+	public void calcularPrecoTotal() {
 
-		try {
+		venda.setPrecoTotal(new BigDecimal("0.00"));
 
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar("nome");
-		} catch (RuntimeException erro) {
+		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
 
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar gerar uma nova cidade");
-			erro.printStackTrace();
+			ItemVenda itemVenda = itensVenda.get(posicao);
+
+			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getValorParcial()));
+
 		}
+
 	}
 
 	public void salvar() throws Exception {
@@ -183,6 +191,14 @@ public class VendaBean implements Serializable {
 			erro.printStackTrace();
 		}
 
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	public List<Produto> getProdutos() {
