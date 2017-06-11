@@ -17,7 +17,7 @@
 		<p:panel header="Produtos">
 
 
-			<p:dataTable id="tabelaProdutos"
+			<p:dataTable id="tabelaProdutos" paginatorPosition="bottom"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{vendaBean.produtos}" var="produto" rows="3">
 
@@ -113,7 +113,10 @@
 				<p:commandButton value="Finalizar Venda"
 					actionListener="#{vendaBean.finalizarVenda}"
 					update=":mensagem :formulario:panelFinalizar"
-					oncomplete="PF('dialogo').show();" />
+					oncomplete="PF('dialogo').show();">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 
@@ -130,7 +133,7 @@
 				<p:outputLabel value="Horário: " />
 				<h:outputText value="#{vendaBean.venda.horario}">
 					<f:convertDateTime pattern="dd/MM/yyyy HH:MM" locale="pt_BR"
-					timeZone="America/Fortaleza" />
+						timeZone="America/Fortaleza" />
 				</h:outputText>
 
 				<p:outputLabel value="Total: " />
@@ -138,7 +141,7 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 
-				<p:outputLabel value="Funcionário" />
+				<p:outputLabel for="funcionario" value="Funcionário" />
 				<p:selectOneMenu id="funcionario" filter="true"
 					filterMatchMode="contains" value="#{vendaBean.venda.funcionario}"
 					required="true"
@@ -151,8 +154,8 @@
 						itemLabel="#{funcionario.pessoa.nome} - #{funcionario.pessoa.cpf}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Cliente: " />
-				<p:selectOneMenu value="#{vendaBean.venda.cliente}"
+				<p:outputLabel  value="Cliente: " />
+				<p:selectOneMenu   value="#{vendaBean.venda.cliente}"
 					filterMatchMode="contains" required="true"
 					requiredMessage="O campo 'Cliente' é obrigatório!"
 					converter="omnifaces.SelectItemsConverter" filter="true">
@@ -165,7 +168,8 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" update=":mensagem"
+					actionListener="#{vendaBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 
 			</h:panelGrid>

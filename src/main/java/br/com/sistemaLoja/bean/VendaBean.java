@@ -25,6 +25,7 @@ import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.FuncionarioDao;
 import br.com.sistemaloja.dao.ProdutoDao;
+import br.com.sistemaloja.dao.VendaDao;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "vendaBean")
@@ -42,8 +43,7 @@ public class VendaBean implements Serializable {
 	public void listar() {
 
 		try {
- 
-		 
+
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -111,7 +111,7 @@ public class VendaBean implements Serializable {
 
 			itensVenda.remove(achou);
 		}
-		
+
 		calcularPrecoTotal();
 	}
 
@@ -130,42 +130,42 @@ public class VendaBean implements Serializable {
 	}
 
 	public void finalizarVenda() {
-		
+
 		try {
 
 			venda.setHorario(new Date());
-			
+
 			FuncionarioDao funcionarioDao = new FuncionarioDao();
 			funcionarios = funcionarioDao.listarOrdenado();
-			
+
 			ClienteDao clienteDao = new ClienteDao();
 			clientes = clienteDao.listarOrdenado();
-			
-			 
+
 		} catch (RuntimeException e) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao finalizar venda!");
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void salvar() throws Exception {
 
 		try {
 
-			CidadeDao cidadeDao = new CidadeDao();
-			cidadeDao.merge(cidade);
+			if (venda.getPrecoTotal().signum() == 0) {
 
-			// limpando os objetos
-			cidade = new Cidade();
+				Messages.addGlobalInfo("informe um produto para venda");
 
-			cidades = cidadeDao.listar();
+				return;
+			}
 
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
-
-			Messages.addGlobalInfo("Cidade salva com sucesso");
+			 
+			VendaDao vendaDao = new VendaDao();
+			vendaDao.salvar(venda, itensVenda);
+			
+			Messages.addGlobalInfo("Venda realizada com Sucesso");
+			
 
 		} catch (RuntimeException e) {
 
@@ -262,6 +262,4 @@ public class VendaBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 
-		
-	
 }
