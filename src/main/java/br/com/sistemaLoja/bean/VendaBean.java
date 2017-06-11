@@ -40,9 +40,7 @@ public class VendaBean implements Serializable {
 	public void listar() {
 
 		try {
-
-			FuncionarioDao funcionarioDao = new FuncionarioDao();
-			funcionarios = funcionarioDao.listar();
+ 
 		 
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
@@ -129,6 +127,21 @@ public class VendaBean implements Serializable {
 
 	}
 
+	public void finalizarVenda() {
+		
+		try {
+
+			FuncionarioDao funcionarioDao = new FuncionarioDao();
+			funcionarios = funcionarioDao.listar();
+			 
+		} catch (RuntimeException e) {
+
+			Messages.addFlashGlobalError("Ocorreu um erro ao finalizar venda!");
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void salvar() throws Exception {
 
 		try {

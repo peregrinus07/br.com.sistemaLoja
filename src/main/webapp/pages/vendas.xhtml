@@ -111,6 +111,8 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 				<p:commandButton value="Finalizar Venda"
+					actionListener="#{vendaBean.finalizarVenda}"
+					update=":mensagem :formulario:panelFinalizar"
 					oncomplete="PF('dialogo').show();" />
 			</h:panelGrid>
 		</p:panel>
@@ -123,9 +125,10 @@
 
 		<h:form id="formulario">
 
-			<h:panelGrid columns="2">
+			<h:panelGrid id="panelFinalizar" columns="2">
 				<p:outputLabel value="Funcionário: " />
-				<p:selectOneMenu>
+				<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
+					converter="omnifaces.SelectItemsConverter" filter="true">
 					<f:selectItem itemLabel="Selecione um funcionário"
 						noSelectionOption="true" />
 					<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
