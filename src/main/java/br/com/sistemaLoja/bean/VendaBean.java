@@ -1,6 +1,7 @@
 package br.com.sistemaLoja.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,16 +46,37 @@ public class VendaBean implements Serializable {
 	}
 
 	public void adcionarProduto(ActionEvent evento) {
-		
+
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
 
-		ItemVenda itemVenda = new ItemVenda();
-		itemVenda.setValorParcial(produto.getPreco());
-		itemVenda.setProduto(produto);
-		itemVenda.setQuantidade(new Short("1"));
+		int achou = -1;
+
+		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+
+			if (itensVenda.get(posicao).getProduto().equals(produto)) {
+
+				achou = posicao;
+			}
+		}
+
+		if(achou < 0) {
+			
+			ItemVenda itemVenda = new ItemVenda();
+			itemVenda.setValorParcial(produto.getPreco());
+			itemVenda.setProduto(produto);
+			itemVenda.setQuantidade(new Short("1"));
+			itensVenda.add(itemVenda);
+			
+		} else {
+			
+			ItemVenda itemVenda = itensVenda.get(achou);
+			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+			itemVenda.setValorParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+			
+		}
 		
-		itensVenda.add(itemVenda);
 		
+
 	}
 
 	public void novo() {
