@@ -33,7 +33,7 @@ public class FuncionarioBean implements Serializable {
 		try {
 
 			FuncionarioDao funcionarioDao = new FuncionarioDao();
-			funcionarios = funcionarioDao.listar("dataCadastro");
+			funcionarios = funcionarioDao.listar();
 
 		} catch (RuntimeException erro) {
 

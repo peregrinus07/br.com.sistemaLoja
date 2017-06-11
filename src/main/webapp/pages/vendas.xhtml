@@ -126,14 +126,32 @@
 		<h:form id="formulario">
 
 			<h:panelGrid id="panelFinalizar" columns="2">
-				<p:outputLabel value="Funcionário: " />
-				<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
-					converter="omnifaces.SelectItemsConverter" filter="true">
-					<f:selectItem itemLabel="Selecione um funcionário"
-						noSelectionOption="true" />
+
+				<p:outputLabel value="Funcionário" />
+				<p:selectOneMenu id="funcionario" filter="true"
+					filterMatchMode="contains" value="#{vendaBean.venda.funcionario}"
+					required="true"
+					requiredMessage="O campo 'Funcionário' é obrigatório!"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um funcionário" />
 					<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
-						itemValue="#{funcionario}" itemLabel="#{funcionario.pessoa.nome}" />
+						itemValue="#{funcionario}"
+						itemLabel="#{funcionario.pessoa.nome} - #{funcionario.pessoa.cpf}" />
 				</p:selectOneMenu>
+
+				<p:outputLabel value="Cliente: " />
+				<p:selectOneMenu value="#{vendaBean.venda.cliente}"
+					filterMatchMode="contains" required="true"
+					requiredMessage="O campo 'Cliente' é obrigatório!"
+					converter="omnifaces.SelectItemsConverter" filter="true">
+					<f:selectItem itemLabel="Selecione um Cliente"
+						noSelectionOption="true" />
+					<f:selectItems value="#{vendaBean.clientes}" var="cliente"
+						itemValue="#{cliente}"
+						itemLabel="#{cliente.pessoa.nome} - #{cliente.pessoa.cpf}" />
+				</p:selectOneMenu>
+
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">

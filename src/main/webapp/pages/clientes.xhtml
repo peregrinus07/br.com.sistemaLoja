@@ -28,15 +28,16 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" filterBy="#{cliente.pessoa.nome}"
+					sortBy="#{cliente.pessoa.nome}">
 					<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" filterBy="#{cliente.pessoa.cpf}">
 					<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Data de Cadastro">
+				<p:column headerText="Data de Cadastro" filterBy="#{cliente.dataCadastro}">
 					<h:outputText value="#{cliente.dataCadastro}">
 						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>

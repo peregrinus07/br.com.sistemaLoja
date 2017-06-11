@@ -19,6 +19,7 @@ import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.dao.CidadeDao;
+import br.com.sistemaloja.dao.ClienteDao;
 import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.FuncionarioDao;
@@ -132,7 +133,11 @@ public class VendaBean implements Serializable {
 		try {
 
 			FuncionarioDao funcionarioDao = new FuncionarioDao();
-			funcionarios = funcionarioDao.listar();
+			funcionarios = funcionarioDao.listarOrdenado();
+			
+			ClienteDao clienteDao = new ClienteDao();
+			clientes = clienteDao.listarOrdenado();
+			
 			 
 		} catch (RuntimeException e) {
 

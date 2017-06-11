@@ -28,11 +28,14 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome">
-					<h:outputText value="#{funcionario.pessoa.nome}" />
+				<p:column headerText="Nome" filterBy="#{funcionario.pessoa.nome}"
+					sortBy="#{funcionario.pessoa.nome}">
+					<h:outputText
+						value="#{funcionario.pessoa.nome} - #{funcionario.pessoa.cpf}" />
 				</p:column>
 
-				<p:column headerText="Cateira de Trabalho">
+				<p:column headerText="Cateira de Trabalho"
+					filterBy="#{funcionario.carteiraDeTrabalho}">
 					<h:outputText value="#{funcionario.carteiraDeTrabalho}" />
 				</p:column>
 
@@ -42,9 +45,9 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Cpf:">
+				<p:column headerText="Cpf:" filterBy="#{funcionario.pessoa.cpf}">
 					<h:outputText value="#{funcionario.pessoa.cpf}" />
-						 
+
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -62,7 +65,7 @@
 						<p:commandButton value="No" type="button"
 							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
- 
+
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{funcionarioBean.editar}"
 						update=":mensagem :formCadastro:painel"
@@ -89,6 +92,7 @@
 				<p:outputLabel for="pessoa" value="Pessoa" />
 
 				<p:selectOneMenu id="pessoa" filter="true"
+					filterMatchMode="contains"
 					value="#{funcionarioBean.funcionario.pessoa}" required="true"
 					requiredMessage="O campo 'Pessoa' é obrigatório!"
 					converter="omnifaces.SelectItemsConverter">
@@ -97,7 +101,9 @@
 					<f:selectItems value="#{funcionarioBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
 				</p:selectOneMenu>
- 
+
+				
+
 				<p:outputLabel for="carteira" value="Carteira de Trabalho: " />
 				<p:inputText id="carteira" size="30" maxlength="50"
 					value="#{funcionarioBean.funcionario.carteiraDeTrabalho}"
@@ -118,7 +124,7 @@
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 
 			</h:panelGrid>
- 
+
 		</h:form>
 	</p:dialog>
 
