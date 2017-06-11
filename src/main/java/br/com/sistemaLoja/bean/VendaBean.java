@@ -3,6 +3,7 @@ package br.com.sistemaLoja.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -132,6 +133,8 @@ public class VendaBean implements Serializable {
 		
 		try {
 
+			venda.setHorario(new Date());
+			
 			FuncionarioDao funcionarioDao = new FuncionarioDao();
 			funcionarios = funcionarioDao.listarOrdenado();
 			
