@@ -91,8 +91,11 @@
 
 				<p:column headerText="Opções">
 
-					<p:commandButton icon="ui-icon-minus" />
-
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{vendaBean.removerProduto}" 
+						update=":mensagem :formVendas:tabelaCarrinho">
+						<f:attribute name="itemSelecionado" value="#{itemVenda}" />
+					</p:commandButton>
 
 				</p:column>
 
