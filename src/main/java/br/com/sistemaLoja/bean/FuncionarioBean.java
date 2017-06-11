@@ -50,7 +50,7 @@ public class FuncionarioBean implements Serializable {
 			funcionario = new Funcionario();
 			PessoaDao pessoaDao = new PessoaDao();
 
-			pessoas = pessoaDao.listar("nome");
+			pessoas = pessoaDao.listar();
 
 		} catch (RuntimeException erro) {
 
@@ -73,11 +73,11 @@ public class FuncionarioBean implements Serializable {
 
 			novo();
 
-			Messages.addGlobalInfo("funcionario salva com sucesso");
+			Messages.addGlobalInfo("funcionario salvo com sucesso");
 
 		} catch (RuntimeException e) {
 
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova funcionarios");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar um novo funcionario");
 		}
 
 	}

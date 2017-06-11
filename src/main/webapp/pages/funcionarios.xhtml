@@ -16,12 +16,12 @@
 	<h:form id="formFuncionarios">
 		<p:panel header="Funcionários - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{clienteBean.clientes}" var="cliente"
-				rows="5">
+				paginator="true" value="#{funcionarioBean.funcionarios}"
+				var="funcionario" rows="5">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{clienteBean.novo}"
+						actionListener="#{funcionarioBean.novo}"
 						update=":mensagem :formCadastro:painel">
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -29,32 +29,32 @@
 				</f:facet>
 
 				<p:column headerText="Nome">
-					<h:outputText value="#{cliente.pessoa.nome}" />
+					<h:outputText value="#{funcionario.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="Cateira de Trabalho">
-					<h:outputText value="#{cliente.pessoa.cpf}" />
+					<h:outputText value="#{funcionario.carteiraDeTrabalho}" />
 				</p:column>
 
 				<p:column headerText="Data de Admissão">
-					<h:outputText value="#{cliente.dataCadastro}">
+					<h:outputText value="#{funcionario.dataAdmissao}">
 						<f:convertDateTime locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Liberado">
-					<p:selectBooleanCheckbox value="#{cliente.liberado}"
+				<p:column headerText="Cpf:">
+					<h:outputText value="#{funcionario.pessoa.cpf}" />
 						disabled="true" />
 				</p:column>
 
 				<p:column headerText="Opções">
 
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{clienteBean.excluir}"
+						actionListener="#{funcionarioBean.excluir}"
 						update=":mensagem :formFuncionarios:tabela">
 						<p:confirm header="Confirmação"
 							message="Deseja excluir o cliente?" icon="ui-icon-alert" />
-						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+						<f:attribute name="funcionarioSelecionado" value="#{funcionario}" />
 					</p:commandButton>
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 						<p:commandButton value="Yes" type="button"
@@ -67,10 +67,10 @@
 
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{clienteBean.editar}"
+						actionListener="#{funcionarioBean.editar}"
 						update=":mensagem :formCadastro:painel"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+						<f:attribute name="funcionarioSelecionado" value="#{funcionario}" />
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
@@ -88,35 +88,32 @@
 		<h:form id="formCadastro">
 
 			<h:panelGrid id="painel" columns="2">
+
 				<p:outputLabel for="pessoa" value="Pessoa" />
 
 				<p:selectOneMenu id="pessoa" filter="true"
-					value="#{clienteBean.cliente.pessoa}" required="true"
+					value="#{funcionarioBean.funcionario.pessoa}"  required="true"
 					requiredMessage="O campo 'Pessoa' é obrigatório!"
 					converter="omnifaces.SelectItemsConverter">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma pessoa" />
-					<f:selectItems value="#{clienteBean.pessoas}" var="pessoa"
+					<f:selectItems value="#{funcionarioBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
- 
 				</p:selectOneMenu>
+
+
 
 				<p:outputLabel for="carteira" value="Carteira de Trabalho: " />
 				<p:inputText id="carteira" size="30" maxlength="50"
-					value="#{funcionarioBean.funcionario.carteiraDeTrabalho}" required="true"
+					value="#{funcionarioBean.funcionario.carteiraDeTrabalho}"
+					required="true"
 					requiredMessage="O campo 'Carteira de Trabalho' é obrigatório" />
- 
+
 				<p:outputLabel for="dataCadastro" value="Data de Admissão:" />
 				<p:calendar id="dataCadastro"
-					value="#{}" required="true"
+					value="#{funcionarioBean.funcionario.dataAdmissao}" required="true"
 					requiredMessage="O campo 'Data de Cadastro' é obrigatório"
 					size="10" locale="pt_BR" />
-
-
-				<p:outputLabel for="liberado" value="Ativo:" />
-				<p:selectBooleanCheckbox id="liberado"
-					value="#{clienteBean.cliente.liberado}" required="true"
-					requiredMessage="O campo 'Liberado' é obrigatório" />
 
 			</h:panelGrid>
 			<h:panelGrid columns="2">
