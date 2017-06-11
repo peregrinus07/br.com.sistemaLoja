@@ -1,6 +1,7 @@
 package br.com.sistemaLoja.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Cidade;
 import br.com.sistemaLoja.domain.Estado;
+import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaloja.dao.CidadeDao;
 import br.com.sistemaloja.dao.EstadoDao;
@@ -23,6 +25,7 @@ import br.com.sistemaloja.dao.ProdutoDao;
 public class VendaBean implements Serializable {
 
 	private List<Produto> produtos;
+	private List<ItemVenda> itensVenda;
 
 	@PostConstruct
 	public void listar() {
@@ -31,6 +34,7 @@ public class VendaBean implements Serializable {
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			produtos = ProdutoDao.listar("descricao");
+			itensVenda = new ArrayList<>();
 
 		} catch (RuntimeException erro) {
 
@@ -38,6 +42,19 @@ public class VendaBean implements Serializable {
 			erro.printStackTrace();
 		}
 
+	}
+
+	public void adcionarProduto(ActionEvent evento) {
+		
+		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
+
+		ItemVenda itemVenda = new ItemVenda();
+		itemVenda.setValorParcial(produto.getPreco());
+		itemVenda.setProduto(produto);
+		itemVenda.setQuantidade(new Short("1"));
+		
+		itensVenda.add(itemVenda);
+		
 	}
 
 	public void novo() {
@@ -131,6 +148,14 @@ public class VendaBean implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public List<ItemVenda> getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(List<ItemVenda> itensVenda) {
+		this.itensVenda = itensVenda;
 	}
 
 }

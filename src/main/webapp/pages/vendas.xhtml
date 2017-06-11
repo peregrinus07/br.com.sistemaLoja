@@ -17,9 +17,10 @@
 		<p:panel header="Produtos">
 
 
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{vendaBean.produtos}" var="produto" rows="3">
- 
+			<p:dataTable id="tabelaProdutos"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{vendaBean.produtos}" var="produto" rows="3">
+
 				<p:column headerText="Nome" sortBy="#{produto.nome}"
 					filterBy="#{produto.nome}">
 					<h:outputText value="#{produto.nome}" />
@@ -50,9 +51,11 @@
 
 				<p:column headerText="Opções">
 
-					<p:commandButton icon="ui-icon-plus" />
-					 
-
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{vendaBean.adcionarProduto}"
+						update=":mensagem :formVendas:tabelaCarrinho">
+						<f:attribute name="produtoselecionado" value="#{produto}" />
+					</p:commandButton>
 				</p:column>
 
 			</p:dataTable>
@@ -60,6 +63,40 @@
 		</p:panel>
 
 		<p:panel header="Carrinho de Compras">
+
+			<p:dataTable id="tabelaCarrinho"
+				emptyMessage="Nenhum registro encontrado."
+				value="#{vendaBean.itensVenda}" var="itemVenda">
+
+				<p:column headerText="Produto">
+
+					<h:outputText value="#{itemVenda.produto.nome}" />
+				</p:column>
+
+				<p:column headerText="Preço Unitário">
+					<h:outputText value="#{itemVenda.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{itemVenda.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:commandButton icon="ui-icon-minus" />
+
+
+				</p:column>
+
+			</p:dataTable>
 
 		</p:panel>
 
