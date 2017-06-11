@@ -24,4 +24,30 @@ public class Funcionario extends GenericDomain {
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
 
+	public String getCarteiraDeTrabalho() {
+		return carteiraDeTrabalho;
+	}
+
+	public void setCarteiraDeTrabalho(String carteiraDeTrabalho) {
+		this.carteiraDeTrabalho = carteiraDeTrabalho;
+	}
+
+	public Date getDataAdmissao() {
+		return dataAdmissao;
+	}
+
+	public void setDataAdmissao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
+	
+
 }

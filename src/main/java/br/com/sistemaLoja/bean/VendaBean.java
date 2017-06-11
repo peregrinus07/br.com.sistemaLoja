@@ -12,13 +12,16 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Cidade;
+import br.com.sistemaLoja.domain.Cliente;
 import br.com.sistemaLoja.domain.Estado;
+import br.com.sistemaLoja.domain.Funcionario;
 import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.dao.CidadeDao;
 import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.FabricanteDao;
+import br.com.sistemaloja.dao.FuncionarioDao;
 import br.com.sistemaloja.dao.ProdutoDao;
 
 @SuppressWarnings("serial")
@@ -30,12 +33,17 @@ public class VendaBean implements Serializable {
 
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
+	private List<Cliente> clientes;
+	private List<Funcionario> funcionarios;
 
 	@PostConstruct
 	public void listar() {
 
 		try {
 
+			FuncionarioDao funcionarioDao = new FuncionarioDao();
+			funcionarios = funcionarioDao.listar();
+		 
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
@@ -217,4 +225,22 @@ public class VendaBean implements Serializable {
 		this.itensVenda = itensVenda;
 	}
 
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
+		
+	
 }
