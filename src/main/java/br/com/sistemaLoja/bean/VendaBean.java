@@ -54,8 +54,6 @@ public class VendaBean implements Serializable {
 			produtos = ProdutoDao.listar("descricao");
 			itensVenda = new ArrayList<>();
 
-			 
-			
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashError("Ocorreu um erro ao tentar listar os produtos", null, null);
@@ -165,66 +163,16 @@ public class VendaBean implements Serializable {
 				return;
 			}
 
-			 
 			VendaDao vendaDao = new VendaDao();
 			vendaDao.salvar(venda, itensVenda);
-			
-			listar(); 
-			
+
+			listar();
+
 			Messages.addGlobalInfo("Venda realizada com Sucesso");
-			
 
 		} catch (RuntimeException e) {
 
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova cidades");
-		}
-
-	}
-
-	public void excluir(ActionEvent evento) throws Exception {
-
-		try {
-
-			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
-
-			CidadeDao cidadeDao = new CidadeDao();
-			cidadeDao.excluir(cidade);
-
-			// limpando os objetos
-			cidade = new Cidade();
-			cidades = cidadeDao.listar();
-
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
-
-			Messages.addGlobalInfo("Cidade excluida com sucesso");
-
-		} catch (RuntimeException e) {
-
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir");
-		}
-
-	}
-
-	public void editar(ActionEvent evento) {
-
-		try {
-
-			cidade = new Cidade();
-
-			cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
-
-			cidadeEditar = cidade;
-
-			EstadoDao estadoDao = new EstadoDao();
-			estados = estadoDao.listar();
-
-			cidade.setCodigo(cidadeEditar.getCodigo());
-
-		} catch (RuntimeException erro) {
-
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar uma cidade");
-			erro.printStackTrace();
 		}
 
 	}
