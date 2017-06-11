@@ -16,7 +16,6 @@
 	<h:form id="formVendas">
 		<p:panel header="Produtos">
 
-
 			<p:dataTable id="tabelaProdutos" paginatorPosition="bottom"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{vendaBean.produtos}" var="produto" rows="3">
@@ -111,8 +110,8 @@
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</h:outputText>
 				<p:commandButton value="Finalizar Venda"
+					update=":mensagem :formularioFinalizar:painelFinalizar"
 					actionListener="#{vendaBean.finalizarVenda}"
-					update=":mensagem :formulario:panelFinalizar"
 					oncomplete="PF('dialogo').show();">
 					<f:actionListener
 						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -126,9 +125,9 @@
 	<p:dialog header="Finalizar Venda" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true">
 
-		<h:form id="formulario">
+		<h:form id="formularioFinalizar">
 
-			<h:panelGrid id="panelFinalizar" columns="2">
+			<h:panelGrid id="painelFinalizar" columns="2">
 
 				<p:outputLabel value="Horário: " />
 				<h:outputText value="#{vendaBean.venda.horario}">
@@ -154,10 +153,9 @@
 						itemLabel="#{funcionario.pessoa.nome} - #{funcionario.pessoa.cpf}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel  value="Cliente: " />
-				<p:selectOneMenu   value="#{vendaBean.venda.cliente}"
-					filterMatchMode="contains" required="true"
-					requiredMessage="O campo 'Cliente' é obrigatório!"
+				<p:outputLabel value="Cliente: " />
+				<p:selectOneMenu value="#{vendaBean.venda.cliente}"
+					filterMatchMode="contains"
 					converter="omnifaces.SelectItemsConverter" filter="true">
 					<f:selectItem itemLabel="Selecione um Cliente"
 						noSelectionOption="true" />
@@ -168,7 +166,8 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" update=":mensagem"
+				<p:commandButton value="Salvar" oncomplete="PF('dialogo').hide();"
+					update=":mensagem :formularioFinalizar:painelFinalizar :formVendas:tabelaProdutos :formVendas:tabelaCarrinho :formVendas:valorTotal"
 					actionListener="#{vendaBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 

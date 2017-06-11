@@ -10,7 +10,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.omnifaces.util.Messages;
+import org.w3c.dom.ls.LSInput;
 
 import br.com.sistemaLoja.domain.Cidade;
 import br.com.sistemaLoja.domain.Cliente;
@@ -51,6 +54,8 @@ public class VendaBean implements Serializable {
 			produtos = ProdutoDao.listar("descricao");
 			itensVenda = new ArrayList<>();
 
+			 
+			
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashError("Ocorreu um erro ao tentar listar os produtos", null, null);
@@ -163,6 +168,8 @@ public class VendaBean implements Serializable {
 			 
 			VendaDao vendaDao = new VendaDao();
 			vendaDao.salvar(venda, itensVenda);
+			
+			listar(); 
 			
 			Messages.addGlobalInfo("Venda realizada com Sucesso");
 			
