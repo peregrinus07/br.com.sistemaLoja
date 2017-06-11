@@ -5,15 +5,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	  
+
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Sistema para Gerenciamento de Pequenas Empresas</title>
 	<h:outputStylesheet library="css" name="estilo.css" />
 </h:head>
-<body>
-
+<h:body>
+	<p:growl id="mensagem" />
 	<div id="container">
 
 		<div id="topo" class="divTopo">
@@ -21,8 +21,10 @@
 				height="200" styleClass="imagemTopo" />
 		</div>
 
-		<div id="cabecalho">
-			<h:form>
+		<div id="cabecalho" class="divCabecalho">
+
+			<p:growl id="menu" />
+			<h:form id="formMenu">
 				<p:menubar>
 					<p:submenu label="Arquivos">
 						<p:menuitem value="Sair" />
@@ -51,12 +53,12 @@
 		</div>
 
 		<div id="conteúdo">
-		
+
 			<ui:insert name="conteudo" />
-		
+
 		</div>
 
 	</div>
 
-</body>
+</h:body>
 </html>
