@@ -1,8 +1,10 @@
 package br.com.sistemaLoja.bean;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -17,7 +19,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
@@ -204,15 +209,35 @@ public class ProdutoBean implements Serializable {
 			String caminho = Faces.getRealPath("/reports/produtosLista.jasper");
 
 			Map<String, Object> parametros = new HashMap<>();
-			
+
 			Connection conexao = HibernetUtil.getConexao();
 
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
 			OutputStream saida = new FileOutputStream("/home/tibe/teste/relatorio.pdf");
+
+			// JasperExportManager.exportReportToPdfFile(relatorio,
+			// "/home/tibe/teste/relatorio.pdf");
+
+			String caminhoWebInf = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/WEB-INF/");
+
+			/**************************************/
+
+			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance()
+					.getExternalContext().getResponse();
+
+			httpServletResponse.addHeader("Content-disposition", "attachment; filename=" + "relatorio.pdf");
+
+			FacesContext.getCurrentInstance().responseComplete();
+			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(relatorio, servletOutputStream);
+			System.out.println("Relatório Pronto");
 			
-			JasperExportManager.exportReportToPdfFile(relatorio,"/home/tibe/teste/relatorio.pdf");
-			 
-			 
+			// Enviando mensagem de Download
+			Messages.addGlobalInfo("Aquivo Enviado");
+			
+			servletOutputStream.flush();
+			servletOutputStream.close();
+			FacesContext.getCurrentInstance().responseComplete();
 
 		} catch (JRException e) {
 

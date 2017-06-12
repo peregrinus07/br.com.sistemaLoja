@@ -7,168 +7,173 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/pages/templates/modelo.xhtml">
 
- 
+
 	<ui:define name="conteudo">
-	<h:form id="formListaProdutos">
-		<p:panel header="Produtos - Listagem">
+		<h:form id="formListaProdutos">
+			<p:panel header="Produtos - Listagem">
 
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{ProdutoBean.produtos}" var="produto"
-				rows="5" >
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{ProdutoBean.produtos}" var="produto"
+					rows="5">
 
-				<f:facet name="header">
-					<p:commandButton value="Novo" icon="ui-icon-plus" oncomplete="PF('dialogo').show();"
-						update=":formCadastro:painel">
+					<f:facet name="header">
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							oncomplete="PF('dialogo').show();" update=":formCadastro:painel">
 
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-					
-					
-					<p:commandButton actionListener="#{ProdutoBean.gerarRelatorio()}" value="Imprimir Relatório" icon="ui-icon-print" />
-				</f:facet>
-
-				<p:column headerText="Nome" sortBy="#{produto.nome}"
-					filterBy="#{produto.nome}">
-					<h:outputText value="#{produto.nome}" />
-				</p:column>
-
-				<p:column headerText="Descrição" sortBy="#{produto.descricao}"
-					filterBy="#{produto.descricao}">
-					<h:outputText value="#{produto.descricao}" />
-				</p:column>
-
-				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}"
-					filterBy="#{produto.quantidade}">
-					<h:outputText value="#{produto.quantidade}" />
-				</p:column>
-
-				<p:column headerText="Preço" sortBy="#{produto.preco}"
-					filterBy="#{produto.preco}">
-					<h:outputText value="#{produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Fabricante"
-					sortBy="#{produto.fabricante.nome}"
-					filterBy="#{produto.fabricante.nome}">
-					<h:outputText value="#{produto.fabricante.nome}" />
-				</p:column>
-
-				<p:column headerText="Opções">
-
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{ProdutoBean.excluir}"
-						update=":mensagem :formListaProdutos:tabela">
-						<p:confirm header="Confirmation"
-							message="Deseja deletar o Produto?" icon="ui-icon-alert" />
-						<f:attribute name="produtoselecionado" value="#{produto}" />
-					</p:commandButton>
-
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Yes" type="button"
-							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button"
-							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</p:confirmDialog>
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
 
 
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{ProdutoBean.editar}"
-						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
-						<f:attribute name="produtoselecionado" value="#{produto}" />
+						<p:commandButton value="Download do Relatório" ajax="false"
+							onclick="PrimeFaces.monitorDownload(start, stop);"
+							icon="ui-icon-print">
+							<p:fileDownload value="#{ProdutoBean.gerarRelatorio()}" />
+						</p:commandButton>
 
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</f:facet>
 
-					</p:commandButton>
+					<p:column headerText="Nome" sortBy="#{produto.nome}"
+						filterBy="#{produto.nome}">
+						<h:outputText value="#{produto.nome}" />
+					</p:column>
 
-				</p:column>
+					<p:column headerText="Descrição" sortBy="#{produto.descricao}"
+						filterBy="#{produto.descricao}">
+						<h:outputText value="#{produto.descricao}" />
+					</p:column>
 
-			</p:dataTable>
+					<p:column headerText="Quantidade" sortBy="#{produto.quantidade}"
+						filterBy="#{produto.quantidade}">
+						<h:outputText value="#{produto.quantidade}" />
+					</p:column>
 
-		</p:panel>
-	</h:form>
+					<p:column headerText="Preço" sortBy="#{produto.preco}"
+						filterBy="#{produto.preco}">
+						<h:outputText value="#{produto.preco}">
+							<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
 
-	<p:dialog header="Produtos - Cadastros" widgetVar="dialogo"
-		draggable="true" resizable="false" modal="true">
-		<h:form id="formCadastro" enctype="multipart/form-data">
+					<p:column headerText="Fabricante"
+						sortBy="#{produto.fabricante.nome}"
+						filterBy="#{produto.fabricante.nome}">
+						<h:outputText value="#{produto.fabricante.nome}" />
+					</p:column>
 
-			<h:panelGrid id="painel" columns="2">
+					<p:column headerText="Opções">
 
-				<p:outputLabel for="nome" value="Nome: " />
-				<p:inputText id="nome" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.nome}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório" />
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{ProdutoBean.excluir}"
+							update=":mensagem :formListaProdutos:tabela">
+							<p:confirm header="Confirmation"
+								message="Deseja deletar o Produto?" icon="ui-icon-alert" />
+							<f:attribute name="produtoselecionado" value="#{produto}" />
+						</p:commandButton>
 
-				<p:outputLabel for="descricao" value="Descrição: " />
-				<p:inputText id="descricao" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.descricao}" required="true"
-					requiredMessage="O campo 'Descrição' é obrigatório" />
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
 
-				<p:outputLabel for="quantidade" value="Quantidade: " />
-				<p:inputText id="quantidade" size="30" maxlength="50"
-					value="#{ProdutoBean.produto.quantidade}" required="true"
-					requiredMessage="O campo 'Quantidade' é obrigatório"
-					converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"
-					validatorMessage="Informe um Valor entre 0 e 1000 para o campo 'Quantidade'">
-					<f:validateLongRange minimum="0" maximum="100000" />
-				</p:inputText>
 
-				<p:outputLabel for="preco" value="Preço: " />
-				<p:inputText id="preco" size="10" maxlength="7"
-					value="#{ProdutoBean.produto.preco}" required="true"
-					requiredMessage="O campo 'Preço' é obrigatório"
-					converterMessage="Informe um valor válido no campo 'Preço' é invalido!"
-					validatorMessage="Informe um Valor entre 0,1 e 9999,00 para o campo 'Preço'">
-					<f:validateDoubleRange minimum="0.1" maximum="9999.99" />
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</p:inputText>
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{ProdutoBean.editar}"
+							update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+							<f:attribute name="produtoselecionado" value="#{produto}" />
 
-				<p:outputLabel value="Fabricante: " />
-				<p:selectOneMenu id="fabricante" filter="true"
-					value="#{ProdutoBean.produto.fabricante}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Fabricante' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Fabricante" />
-					<f:selectItems value="#{ProdutoBean.fabricantes}" var="fabricante"
-						itemValue="#{fabricante}" itemLabel="#{fabricante.nome}" />
-				</p:selectOneMenu>
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 
-				<p:outputLabel for="foto" value="Foto: " />
-				<p:fileUpload id="foto" mode="advanced" label="Escolher"
-					uploadLabel="Enviar" cancelLabel="Cancelar"
-					fileUploadListener="#{ProdutoBean.upLoad}"
-					allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-					invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
-					fileLimit="1"
-					fileLimitMessage="Só é possível escolher 1	 arquivos por vez."
-					onstart="console.log('Iniciando envio de arquivo')"
-					onerror="console.log('Erro na requisição de envio')"
-					oncomplete="console.log('Envio concluído')" update=":mensagem" />
+						</p:commandButton>
 
-				<p:outputLabel value="Imagem:" />
-				<p:graphicImage value="#{imagemBean.foto}" width="50" height="50">
-					<f:param name="caminho" value="#{ProdutoBean.produto.caminho}" />
-				</p:graphicImage>
+					</p:column>
 
-			</h:panelGrid>
-	
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					update=":mensagem :formListaProdutos:tabela :formCadastro:painel"
-					actionListener="#{ProdutoBean.salvar}" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
-					actionListener="#{ProdutoBean.salvar}" />
+				</p:dataTable>
 
-			</h:panelGrid>
-
+			</p:panel>
 		</h:form>
-	</p:dialog>
+
+		<p:dialog header="Produtos - Cadastros" widgetVar="dialogo"
+			draggable="true" resizable="false" modal="true">
+			<h:form id="formCadastro" enctype="multipart/form-data">
+
+				<h:panelGrid id="painel" columns="2">
+
+					<p:outputLabel for="nome" value="Nome: " />
+					<p:inputText id="nome" size="30" maxlength="50"
+						value="#{ProdutoBean.produto.nome}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório" />
+
+					<p:outputLabel for="descricao" value="Descrição: " />
+					<p:inputText id="descricao" size="30" maxlength="50"
+						value="#{ProdutoBean.produto.descricao}" required="true"
+						requiredMessage="O campo 'Descrição' é obrigatório" />
+
+					<p:outputLabel for="quantidade" value="Quantidade: " />
+					<p:inputText id="quantidade" size="30" maxlength="50"
+						value="#{ProdutoBean.produto.quantidade}" required="true"
+						requiredMessage="O campo 'Quantidade' é obrigatório"
+						converterMessage="Informe um valor válido no campo 'Quantidade' é invalido!"
+						validatorMessage="Informe um Valor entre 0 e 1000 para o campo 'Quantidade'">
+						<f:validateLongRange minimum="0" maximum="100000" />
+					</p:inputText>
+
+					<p:outputLabel for="preco" value="Preço: " />
+					<p:inputText id="preco" size="10" maxlength="7"
+						value="#{ProdutoBean.produto.preco}" required="true"
+						requiredMessage="O campo 'Preço' é obrigatório"
+						converterMessage="Informe um valor válido no campo 'Preço' é invalido!"
+						validatorMessage="Informe um Valor entre 0,1 e 9999,00 para o campo 'Preço'">
+						<f:validateDoubleRange minimum="0.1" maximum="9999.99" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:inputText>
+
+					<p:outputLabel value="Fabricante: " />
+					<p:selectOneMenu id="fabricante" filter="true"
+						value="#{ProdutoBean.produto.fabricante}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'Fabricante' é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um Fabricante" />
+						<f:selectItems value="#{ProdutoBean.fabricantes}" var="fabricante"
+							itemValue="#{fabricante}" itemLabel="#{fabricante.nome}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="foto" value="Foto: " />
+					<p:fileUpload id="foto" mode="advanced" label="Escolher"
+						uploadLabel="Enviar" cancelLabel="Cancelar"
+						fileUploadListener="#{ProdutoBean.upLoad}"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						invalidFileMessage="São permitidas somente imagens (gif, jpeg, jpg e png)"
+						fileLimit="1"
+						fileLimitMessage="Só é possível escolher 1	 arquivos por vez."
+						onstart="console.log('Iniciando envio de arquivo')"
+						onerror="console.log('Erro na requisição de envio')"
+						oncomplete="console.log('Envio concluído')" update=":mensagem" />
+
+					<p:outputLabel value="Imagem:" />
+					<p:graphicImage value="#{imagemBean.foto}" width="50" height="50">
+						<f:param name="caminho" value="#{ProdutoBean.produto.caminho}" />
+					</p:graphicImage>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						update=":mensagem :formListaProdutos:tabela :formCadastro:painel"
+						actionListener="#{ProdutoBean.salvar}" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
+						actionListener="#{ProdutoBean.salvar}" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
 
 
 
-</ui:define>
+	</ui:define>
 </ui:composition>
