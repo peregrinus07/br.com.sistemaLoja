@@ -1,18 +1,25 @@
 package br.com.sistemaLoja.bean;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -21,6 +28,19 @@ import br.com.sistemaLoja.domain.Fabricante;
 import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.ProdutoDao;
+import br.com.sistemaloja.util.HibernetUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.OutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "ProdutoBean")
@@ -176,13 +196,31 @@ public class ProdutoBean implements Serializable {
 		}
 
 	}
-	
-	public void gerarRelatorio() {
-		
-		
-		
+
+	public void gerarRelatorio() throws IOException {
+
+		try {
+
+			String caminho = Faces.getRealPath("/reports/produtosLista.jasper");
+
+			Map<String, Object> parametros = new HashMap<>();
+			
+			Connection conexao = HibernetUtil.getConexao();
+
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+			OutputStream saida = new FileOutputStream("/home/tibe/teste/relatorio.pdf");
+			
+			JasperExportManager.exportReportToPdfFile(relatorio,"/home/tibe/teste/relatorio.pdf");
+			 
+			 
+
+		} catch (JRException e) {
+
+			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
+			e.printStackTrace();
+		}
+
 	}
-	
 
 	public Produto getProduto() {
 		return produto;

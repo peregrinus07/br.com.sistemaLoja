@@ -1,10 +1,14 @@
 package br.com.sistemaloja.util;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.jdbc.ReturningWork;
 
 public class HibernetUtil {
 
@@ -22,6 +26,35 @@ public class HibernetUtil {
 
 	public void setFabrica(SessionFactory fabrica) {
 		this.fabrica = fabrica;
+	}
+
+	public static Connection getConexao() {
+
+		try {
+
+			HibernetUtil conexaoHibernate = new HibernetUtil();
+
+			Session sessao = conexaoHibernate.fabrica.openSession();
+
+			Connection conexao = sessao.doReturningWork(new ReturningWork<Connection>() {
+
+				@Override
+				public Connection execute(Connection conn) throws SQLException {
+					// TODO Auto-generated method stub
+					return conn;
+				}
+
+			});
+
+			return conexao;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+
 	}
 
 	public void criarConexao() throws Exception {
