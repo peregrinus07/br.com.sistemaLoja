@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-11T21:55:56 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CadastroDeProdutos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3f202896-d30d-4713-b0df-0e0210b6b559">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SistemaLoja Data Adapter"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `sistemaLoja`.tb_produto.preco,
+	`sistemaLoja`.tb_produto.quantidade,
+	`sistemaLoja`.tb_produto.nome AS pnome,
+	`sistemaLoja`.tb_fabricante.nome AS fnome
+FROM `sistemaLoja`.tb_produto
+	INNER JOIN `sistemaLoja`.tb_fabricante ON 
+	 `sistemaLoja`.tb_produto.fabricante_codigo = `sistemaLoja`.tb_fabricante.codigo 
+ORDER BY 	`sistemaLoja`.tb_produto.nome ASC,
+`sistemaLoja`.tb_fabricante.nome ASC]]>
+	</queryString>
+	<field name="preco" class="java.math.BigDecimal"/>
+	<field name="quantidade" class="java.lang.Integer"/>
+	<field name="pnome" class="java.lang.String"/>
+	<field name="fnome" class="java.lang.String"/>
+	<variable name="pnome1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{pnome}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="88" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="2" width="82" height="84" uuid="4bf638aa-add6-454f-8955-eaa7c81928a1"/>
+				<imageExpression><![CDATA["/home/tibe/upload/tux.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="30" uuid="705baa24-2151-42dc-85d4-9d7fa92321db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Relatório de produtos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="0" width="130" height="33" uuid="bafeda08-bc60-4d33-9685-90727be2a9b4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<textField pattern="0.00">
+				<reportElement x="180" y="43" width="130" height="30" uuid="34208432-f88d-4e55-b52f-817bee354bc2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="0" width="100" height="33" uuid="6ef39b98-69e2-492d-a1f3-8584b4a459c8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="43" width="100" height="30" uuid="a2403fe7-12ae-4203-9043-9e37705a56d5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="140" height="30" uuid="29e4df06-51d7-4330-b1b4-58c2cf03d44b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="100" height="33" uuid="24098044-c06f-4ce6-988b-e57b7c61dbd2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fabricante]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="43" width="100" height="30" uuid="c393a2cc-897e-421c-ae8a-8ce8afe985a0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fnome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="43" width="100" height="30" uuid="08c6ca87-bf7f-43a7-9f60-1cb77ac366be"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pnome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="30" uuid="eb9be5c1-5671-4341-b6cc-93459825dd23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[@LinuxProCe]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
