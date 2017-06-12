@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-11T22:43:45 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881699e0-afe3-49ac-85a9-d9a88e08f839">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="YHNpc3RlbWFMb2phYC50Yl9lc3RhZG8gLDE1LDE1LGI1NjdhMmQwLTVmYjgtNGMzYS1hYWI1LTU4&#xA;NTcxNmU1NGFlYjs="/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="322"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="666"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SistemaLoja Data Adapter"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `sistemaLoja`.tb_estado.nome,
+	`sistemaLoja`.tb_estado.sigla
+FROM `sistemaLoja`.tb_estado
+ORDER BY `sistemaLoja`.tb_estado.nome ASC]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="sigla" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="454230b9-fe66-45f1-a13e-69e3f048bc13"/>
+				<imageExpression><![CDATA["/home/tibe/upload/tux.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="24" width="370" height="30" uuid="ef44626c-418d-41d2-a290-93cbce5a7ad7"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Desenvolvido por LinuxProce]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="570" height="52" uuid="06bc58af-da7b-4684-83ad-8d6dff69cbde"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Relatório Estados]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="570" height="47" uuid="0c8b559d-7137-424a-b685-69bd4e481c5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[@LinuxProCe ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
