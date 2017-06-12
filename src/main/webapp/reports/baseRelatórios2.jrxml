@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-11T23:22:14 -->
+<!-- 2017-06-11T22:43:45 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881699e0-afe3-49ac-85a9-d9a88e08f839">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="YHNpc3RlbWFMb2phYC50Yl9lc3RhZG8gLDE1LDE1LGI1NjdhMmQwLTVmYjgtNGMzYS1hYWI1LTU4&#xA;NTcxNmU1NGFlYjs="/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="322"/>
@@ -14,6 +14,9 @@ ORDER BY `sistemaLoja`.tb_estado.nome ASC]]>
 	</queryString>
 	<field name="nome" class="java.lang.String"/>
 	<field name="sigla" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<image>
@@ -32,69 +35,27 @@ ORDER BY `sistemaLoja`.tb_estado.nome ASC]]>
 	<pageHeader>
 		<band height="52" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="10" width="570" height="42" uuid="06bc58af-da7b-4684-83ad-8d6dff69cbde"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
+				<reportElement x="0" y="0" width="570" height="52" uuid="06bc58af-da7b-4684-83ad-8d6dff69cbde"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isUnderline="true" isStrikeThrough="false"/>
+					<font size="18"/>
 				</textElement>
-				<text><![CDATA[Relatório de Estados]]></text>
+				<text><![CDATA[Relatório Estados]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="50" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="15" width="80" height="35" uuid="30ec5dac-29c0-4b68-8ef4-a70a279f0ae2"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[nome]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="180" y="15" width="101" height="30" uuid="83b54558-108a-4635-ac42-083063ff0ac7"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[sigla]]></text>
-			</staticText>
-		</band>
+		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="27" splitType="Stretch">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<textField>
-				<reportElement x="0" y="-5" width="80" height="30" uuid="1a8093d4-06d1-466f-aab6-ec47475792ad"/>
-				<textElement textAlignment="Left">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="-3" width="100" height="30" uuid="76b80132-c534-4f90-b4c9-e72df4689af8"/>
-				<textElement textAlignment="Left">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="125" splitType="Stretch"/>
 	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="570" height="52" uuid="0c8b559d-7137-424a-b685-69bd4e481c5f"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
+				<reportElement x="0" y="5" width="570" height="47" uuid="0c8b559d-7137-424a-b685-69bd4e481c5f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -102,4 +63,7 @@ ORDER BY `sistemaLoja`.tb_estado.nome ASC]]>
 			</staticText>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
