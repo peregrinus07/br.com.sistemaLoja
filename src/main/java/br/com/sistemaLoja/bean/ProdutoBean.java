@@ -176,6 +176,13 @@ public class ProdutoBean implements Serializable {
 		}
 
 	}
+	
+	public void gerarRelatorio() {
+		
+		
+		
+	}
+	
 
 	public Produto getProduto() {
 		return produto;

@@ -17,13 +17,15 @@
 				rows="5">
 
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+					<p:commandButton value="Novo" icon="ui-icon-plus" oncomplete="PF('dialogo').show();"
 						update=":formCadastro:painel">
 
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
-
+					
+					
+					<p:commandButton actionListener="#{ProdutoBean.gerarRelatorio()}" value="Imprimir Relatório" icon="ui-icon-print" />
 				</f:facet>
 
 				<p:column headerText="Nome" sortBy="#{produto.nome}"
