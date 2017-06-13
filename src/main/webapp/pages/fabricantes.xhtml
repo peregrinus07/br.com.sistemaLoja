@@ -14,7 +14,8 @@
 
 			<p:dataTable id="tabelaFabricantes"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				value="#{FabricanteBean.fabricantes}" var="fabricante" rows="5">
+				value="#{FabricanteBean.fabricantes}" var="fabricante" rows="5"
+					paginatorPosition="bottom">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
