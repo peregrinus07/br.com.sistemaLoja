@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.sistemaLoja.domain.ItemVenda;
+import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.util.HibernetUtil;
 
@@ -32,6 +33,11 @@ public class VendaDao extends GenericDao<Venda> {
 				 
 				 sessao.save(itemVenda);
 				 
+				 Produto produto = itemVenda.getProduto();
+				 
+				 produto.setQuantidade(new Short((produto.getQuantidade() - itemVenda.getQuantidade())+""));
+				 
+				 sessao.update(produto);
 			 }
 			
 			transacao.commit();
