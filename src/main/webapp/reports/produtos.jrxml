@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-12T15:27:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881699e0-afe3-49ac-85a9-d9a88e08f839">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="322"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="666"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SistemaLoja Data Adapter"/>
-	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
+	<parameter name="PRODUTO_NOME" class="java.lang.String"/>
 	<parameter name="FABRICANTE_NOME" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT `sistemaLoja`.tb_produto.nome AS NOMEPRODUTO,
@@ -16,7 +15,7 @@ FROM `sistemaLoja`.tb_produto
 	INNER JOIN `sistemaLoja`.tb_fabricante ON 
 	 `sistemaLoja`.tb_produto.fabricante_codigo = `sistemaLoja`.tb_fabricante.codigo 
 WHERE 
-	 `sistemaLoja`.tb_produto.nome LIKE $P{PRODUTO_DESCRICAO} 
+	 `sistemaLoja`.tb_produto.nome LIKE $P{PRODUTO_NOME} 
 	 AND `sistemaLoja`.tb_fabricante.nome LIKE $P{FABRICANTE_NOME}]]>
 	</queryString>
 	<field name="NOMEPRODUTO" class="java.lang.String"/>

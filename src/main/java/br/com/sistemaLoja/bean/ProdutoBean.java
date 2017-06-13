@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -206,10 +207,42 @@ public class ProdutoBean implements Serializable {
 
 		try {
 
-			String caminho = Faces.getRealPath("/reports/produtosLista.jasper");
+			DataTable tabela = (DataTable) Faces.getViewRoot().findComponent("formListaProdutos:tabela");
+
+			Map<String, Object> filtros = tabela.getFilters();
+
+			String nomeProduto = (String) filtros.get("nome");
+			String nomeFabricante = (String) filtros.get("fabricante.nome");
+
+			String caminho = Faces.getRealPath("/reports/produtos.jasper");
 
 			Map<String, Object> parametros = new HashMap<>();
 
+			parametros.put("PRODUTO_NOME", nomeProduto);
+			parametros.put("FABRICANTE_NOME", nomeFabricante);
+
+			if (nomeProduto == null) {
+
+				parametros.put("PRODUTO_NOME", "%%");
+
+			} else {
+
+				parametros.put("PRODUTO_NOME", "%" + nomeProduto + "%");
+
+			}
+
+			if (nomeFabricante == null) {
+
+				parametros.put("FABRICANTE_NOME", "%%");
+
+			} else {
+
+				parametros.put("FABRICANTE_NOME", "%" + nomeFabricante + "%");
+
+			}
+
+			System.out.println("Produto: " + nomeProduto);
+			
 			Connection conexao = HibernetUtil.getConexao();
 
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
@@ -231,10 +264,10 @@ public class ProdutoBean implements Serializable {
 			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(relatorio, servletOutputStream);
 			System.out.println("Relatório Pronto");
-			
+
 			// Enviando mensagem de Download
 			Messages.addGlobalInfo("Aquivo Enviado");
-			
+
 			servletOutputStream.flush();
 			servletOutputStream.close();
 			FacesContext.getCurrentInstance().responseComplete();
