@@ -11,8 +11,8 @@ import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.util.HibernetUtil;
 
 public class VendaDao extends GenericDao<Venda> {
-	
-	public void salvar (Venda venda, List<ItemVenda> itensVenda) throws Exception {
+
+	public void salvar(Venda venda, List<ItemVenda> itensVenda) throws Exception {
 
 		HibernetUtil conexao = new HibernetUtil();
 
@@ -22,24 +22,33 @@ public class VendaDao extends GenericDao<Venda> {
 
 		try {
 
-			 transacao = sessao.beginTransaction();
-			 sessao.save(venda);
+			transacao = sessao.beginTransaction();
+			sessao.save(venda);
 
-			 for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
-				  
-				 ItemVenda itemVenda = itensVenda.get(posicao);
-				 
-				 itemVenda.setVenda(venda);
-				 
-				 sessao.save(itemVenda);
-				 
-				 Produto produto = itemVenda.getProduto();
-				 
-				 produto.setQuantidade(new Short((produto.getQuantidade() - itemVenda.getQuantidade())+""));
-				 
-				 sessao.update(produto);
-			 }
-			
+			for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+
+				ItemVenda itemVenda = itensVenda.get(posicao);
+
+				itemVenda.setVenda(venda);
+
+				sessao.save(itemVenda);
+
+				Produto produto = itemVenda.getProduto();
+
+				int quantidadeAtual = produto.getQuantidade() - itemVenda.getQuantidade();
+
+				if (quantidadeAtual >= 0) {
+
+					produto.setQuantidade(new Short((quantidadeAtual) + ""));
+
+					sessao.update(produto);
+				} else {
+					throw new RuntimeException("Quantidade insuficiente em estoque");
+				}
+				
+
+			}
+
 			transacao.commit();
 
 		} catch (RuntimeException erro) {
