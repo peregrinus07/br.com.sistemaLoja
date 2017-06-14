@@ -1,13 +1,36 @@
 @CHARSET "UTF-8";
 
-.imagemTopo {
+
+
+.container{
 	
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	width: auto;
+	height: auto;
 	
 }
 
+.imagemTopo {
+	
+	 
+	float:left
+	
+	display: block;
+	margin-left: 1px;
+	 
+	
+}
+
+.divTitulo {
+	
+	width: 100px;
+	
+	float: left;
+	position: relative;
+	margin-left: 20px;
+	 
+	 
+	
+}
 
 .divTopo {
 	
@@ -20,4 +43,6 @@
 	padding-bottom: 10px;
 	
 }	
+
+.ui-menu { background: #F5F5F5 !important; } 
  

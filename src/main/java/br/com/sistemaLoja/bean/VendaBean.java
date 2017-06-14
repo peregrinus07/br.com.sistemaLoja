@@ -1,3 +1,4 @@
+
 package br.com.sistemaLoja.bean;
 
 import java.io.Serializable;

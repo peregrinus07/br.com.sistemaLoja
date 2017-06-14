@@ -14,18 +14,30 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
-	<div id="container">
+	<div id="container" class="container">
+
+
+
 
 		<div id="topo" class="divTopo">
-			<p:graphicImage library="images" name="linux-banner.png" width="600"
-				height="200" styleClass="imagemTopo" />
+
+			<p:graphicImage library="images" name="tux.png" width="100px"
+				height="100px" styleClass="imagemTopo" />
+
+ 
+				 
+	 
 		</div>
+
+
+
 
 		<div id="cabecalho" class="divCabecalho">
 
 			<p:growl id="menu" />
 			<h:form id="formMenu">
 				<p:menubar>
+
 					<p:submenu label="Arquivos">
 						<p:menuitem value="Sair" />
 					</p:submenu>
@@ -37,12 +49,12 @@
 						<p:menuitem value="Produto" url="/pages/produtos.xhtml" />
 						<p:menuitem value="Pessoa" url="/pages/pessoas.xhtml" />
 						<p:menuitem value="Funcionário" url="/pages/funcionarios.xhtml" />
-						
+
 					</p:submenu>
 
 					<p:submenu label="Movimentações">
-						 
-							<p:menuitem value="Venda" url="/pages/vendas.xhtml" />	
+
+						<p:menuitem value="Venda" url="/pages/vendas.xhtml" />
 					</p:submenu>
 
 					<p:submenu label="Ajuda">

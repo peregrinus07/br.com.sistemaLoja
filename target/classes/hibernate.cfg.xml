@@ -31,8 +31,8 @@
 		<property name="show_sql">true</property>
 
 		<!-- Cria as tabelas do banco de dados / validate / create / update -->
-		<property name="hbm2ddl.auto">validate</property>
- 
+		<property name="hbm2ddl.auto">update</property>
+
 		<!-- Mapeamento das entidades -->
 
 		<mapping class="br.com.sistemaLoja.domain.Estado" />
@@ -43,11 +43,13 @@
 		<mapping class="br.com.sistemaLoja.domain.Cliente" />
 		<mapping class="br.com.sistemaLoja.domain.Funcionario" />
 		<mapping class="br.com.sistemaLoja.domain.Usuario" />
-	    <mapping class="br.com.sistemaLoja.domain.Venda" />
-	 	<mapping class="br.com.sistemaLoja.domain.ItemVenda" />
-	 	<mapping class="br.com.sistemaLoja.domain.Historico" />
-	 	
-	 
+		<mapping class="br.com.sistemaLoja.domain.Venda" />
+		<mapping class="br.com.sistemaLoja.domain.ItemVenda" />
+		<mapping class="br.com.sistemaLoja.domain.Historico" />
+		<mapping class="br.com.sistemaLoja.domain.Caixa" />
+
+
+
 	</session-factory>
 
 </hibernate-configuration>
