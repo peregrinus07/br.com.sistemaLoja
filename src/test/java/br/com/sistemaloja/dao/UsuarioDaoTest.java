@@ -101,11 +101,7 @@ public class UsuarioDaoTest {
 		UsuarioDao usuarioDAO = new UsuarioDao();
 		Usuario usuario = usuarioDAO.autenticar(cpf, senha);
 		
-		if(usuario != null){
-			
-			System.out.println("tibas;)");
-			
-		}
+		 
 	 
 		 
 	}
