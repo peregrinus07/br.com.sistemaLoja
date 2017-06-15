@@ -17,18 +17,21 @@
 			<h:panelGrid columns="2">
 
 				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputMask id="cpf" mask="999.999.999-99" required="true"
-					requiredMessage="O campo 'Cpf' é obrigatório"/>
+				<p:inputMask id="cpf" mask="999.999-99" required="true"
+					requiredMessage="O campo 'Cpf' é obrigatório"
+						value="#{autenticacaoBean.pessoa.cpf}" />
 
 
 				<p:outputLabel for="senha" value="Senha:" />
 				<p:password id="senha" required="true"
-					requiredMessage="O campo 'Senha' é obrigatório" />
+					requiredMessage="O campo 'Senha' é obrigatório"
+					 value="#{autenticacaoBean.usuario.senha}" />
 
 			</h:panelGrid>
 
-			<h:panelGrid columns="1">
-				<p:commandButton value="Entrar no Sistema"  update=":mensagem"/>
+			<h:panelGrid columns="1">Usuario
+				<p:commandButton value="Entrar no Sistema"  update=":mensagem" 
+					actionListener="#{autenticacaoBean.autenticar}"/>
 			</h:panelGrid>
 
 		</p:dialog>
