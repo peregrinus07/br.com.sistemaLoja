@@ -69,23 +69,7 @@ public class PessoaBean implements Serializable {
 
 	public void salvar() throws Exception {
 
-		System.out.println("#############");
-		System.out.println("#############");
-		System.out.println("Nome: " + pessoa.getNome());
-		System.out.println("cpf: " + pessoa.getCpf());
-		System.out.println("rg: " + pessoa.getRg());
-		System.out.println("rua: " + pessoa.getRua());
-		System.out.println("numero: " + pessoa.getNumero());
-		System.out.println("bairro: " + pessoa.getBairro());
-		System.out.println("cep: " + pessoa.getCep());
-		System.out.println("complemento: " + pessoa.getComplemento());
-		System.out.println("telefone: " + pessoa.getTelefone());
-		System.out.println("celular: " + pessoa.getCelular());
-		System.out.println("email: " + pessoa.getEmail());
-		System.out.println("cidade: " + pessoa.getCidade().getNome());
-		System.out.println("#############");
-		System.out.println("#############");
-
+ 
 		try {
 
 			PessoaDao pessoaDao = new PessoaDao();

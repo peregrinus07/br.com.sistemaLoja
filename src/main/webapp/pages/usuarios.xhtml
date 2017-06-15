@@ -95,7 +95,7 @@
 				</p:selectOneMenu>
 
 				<h:outputLabel for="senha" value="Senha: *" />
-				<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+				<p:password id="senha" value="#{usuarioBean.usuario.senhaSemCriptografia}"
 					required="true"  maxlength="8" redisplay="true"
 					requiredMessage="O campo 'Senha' é obrigatório"
 					validatorMessage="Informe uma senha de '6' a '8' caracteres" >

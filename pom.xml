@@ -87,8 +87,6 @@
 			<version>1.0.10</version>
 		</dependency>
 
-
-
 		<!-- OmniFaces -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
@@ -110,6 +108,14 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.4.0</version>
 		</dependency>
+
+		<!-- Apache Shiro Core -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
 
 
 	</dependencies>

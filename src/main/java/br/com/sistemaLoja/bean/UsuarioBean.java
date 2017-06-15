@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.omnifaces.util.Messages;
 
 import br.com.sistemaLoja.domain.Pessoa;
@@ -22,7 +23,7 @@ import br.com.sistemaloja.dao.UsuarioDao;
 public class UsuarioBean implements Serializable {
 
 	private Usuario usuario;
-	private List<Pessoa> pessoas;	 
+	private List<Pessoa> pessoas;
 	private List<Usuario> usuarios;
 
 	@PostConstruct
@@ -42,10 +43,6 @@ public class UsuarioBean implements Serializable {
 		}
 
 	}
-	
- 
-	
-	
 
 	public void novo() {
 
@@ -65,30 +62,16 @@ public class UsuarioBean implements Serializable {
 
 	public void salvar() throws Exception {
 
+		System.out.println("TESTE");
 
-System.out.println("TESTE");
-		System.out.println("#############");
-		System.out.println("#############");
-		System.out.println("Nome: " + usuario.getPessoa().getNome());
-		System.out.println("Senha: " + usuario.getSenha());
-		System.out.println("Ativo: " + usuario.getAtivo());
-		System.out.println("Tipo: " + usuario.getTipo());
-		System.out.println("cpf: " + usuario.getPessoa().getCpf());
-		System.out.println("rg: " + usuario.getPessoa().getRg());
-		System.out.println("rua: " + usuario.getPessoa().getRua());
-		System.out.println("numero: " + usuario.getPessoa().getNumero());
-		System.out.println("bairro: " + usuario.getPessoa().getBairro());
-		System.out.println("cep: " + usuario.getPessoa().getCep());
-		System.out.println("complemento: " + usuario.getPessoa().getComplemento());
-		System.out.println("telefone: " + usuario.getPessoa().getTelefone());
-		System.out.println("celular: " + usuario.getPessoa().getCelular());
-		System.out.println("email: " + usuario.getPessoa().getEmail());
-		System.out.println("cidade: " + usuario.getPessoa().getCidade().getNome());
-		System.out.println("#############");
-		System.out.println("#############");
 		try {
 
 			UsuarioDao usuarioDao = new UsuarioDao();
+
+			SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+
+			usuario.setSenha(hash.toHex());
+			
 			usuarioDao.merge(usuario);
 
 			// limpando os objetos
@@ -135,9 +118,9 @@ System.out.println("TESTE");
 			usuario = new Usuario();
 
 			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
- 
-			System.out.println("Usuario senha: "+usuario.getSenha());
-			
+
+			System.out.println("Usuario senha: " + usuario.getSenha());
+
 			PessoaDao pessoaDao = new PessoaDao();
 			pessoas = pessoaDao.listar("nome");
 
@@ -160,7 +143,6 @@ System.out.println("TESTE");
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
