@@ -7,38 +7,51 @@ import javax.faces.event.PhaseListener;
 import org.omnifaces.util.Faces;
 
 import br.com.sistemaLoja.bean.AutenticacaoBean;
+import br.com.sistemaLoja.domain.Usuario;
 
 @SuppressWarnings("serial")
-public class AutenticacaoListner  implements PhaseListener{
+public class AutenticacaoListner implements PhaseListener {
 
 	@Override
 	public void afterPhase(PhaseEvent arg0) {
 
-		System.out.println("Inicio depois da Fase: "+arg0.getPhaseId());
-		
-		AutenticacaoBean autenticacaoBean	= Faces.getSessionAttribute("autenticacaoBean");
-		
 		String paginaAtual = Faces.getViewId();
-		
-		System.out.println("Autenticação: "+ autenticacaoBean);
-		
-		System.out.println("Pagina Atual: "+paginaAtual );
-		
+
+		boolean ehPaginaDeAutenticação = paginaAtual.contains("autenticacao.xhtml");
+
+		if (!ehPaginaDeAutenticação) {
+
+			AutenticacaoBean autenticacaoBean = Faces.getSessionAttribute("autenticacaoBean");
+
+			if (autenticacaoBean == null) {
+
+				Faces.navigate("/pages/autenticacao.xhtml");
+				return;
+			}
+
+			Usuario usuario = autenticacaoBean.getUsuarioLogado();
+
+			if (usuario == null) {
+
+				Faces.navigate("/pages/autenticacao.xhtml");
+				return;
+			}
+
+		}
+
 	}
 
 	@Override
 	public void beforePhase(PhaseEvent arg0) {
-		 
-		System.out.println("Inicio Antes da Fase: "+ arg0.getPhaseId());
-		
+
+		System.out.println("Inicio Antes da Fase: " + arg0.getPhaseId());
+
 	}
 
 	@Override
 	public PhaseId getPhaseId() {
-		 
+
 		return PhaseId.ANY_PHASE;
 	}
-	
-	
 
 }
