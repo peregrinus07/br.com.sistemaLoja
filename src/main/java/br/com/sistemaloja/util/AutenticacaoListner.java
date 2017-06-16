@@ -44,7 +44,7 @@ public class AutenticacaoListner implements PhaseListener {
 	@Override
 	public void beforePhase(PhaseEvent arg0) {
 
-		System.out.println("Inicio Antes da Fase: " + arg0.getPhaseId());
+		//System.out.println("Inicio Antes da Fase: " + arg0.getPhaseId());
 
 	}
 

@@ -22,55 +22,66 @@ import br.com.sistemaloja.dao.EstadoDao;
 import br.com.sistemaloja.dao.UsuarioDao;
 
 @SuppressWarnings("serial")
-@ManagedBean (name="autenticacaoBean")
-@SessionScoped 
+@ManagedBean(name = "autenticacaoBean")
+@SessionScoped
 public class AutenticacaoBean implements Serializable {
 
 	private Usuario usuario;
-	private Pessoa pessoa;  
+	private Pessoa pessoa;
 	private Usuario usuarioLogado;
-	
+
 	@PostConstruct
 	public void iniciar() {
 
-		
-		 
 		usuario = new Usuario();
 		pessoa = new Pessoa();
-		 
+
 		usuario.setPessoa(pessoa);
-		
+
 	}
-	
+
 	public void autenticar() throws IOException {
-		 
+
 		try {
-			
+
 			UsuarioDao usuarioDao = new UsuarioDao();
-			
+
 			usuarioLogado = usuarioDao.autenticar(pessoa.getCpf(), usuario.getSenha());
-			
-			if(usuarioLogado == null) {
-				
+
+			if (usuarioLogado == null) {
+
 				Messages.addGlobalError("Cpf e/ou Senha invalida");
-				 
+
 				return;
-			}  
-		
-				Faces.redirect("./pages/principal.xhtml");
-		 
-		
+			}
+
+			Faces.redirect("./pages/principal.xhtml");
+
 		} catch (Exception e) {
-			
+
 			Messages.addGlobalError("Erro ao autenticar");
 			e.printStackTrace();
 		}
+
+	}
+
+	public boolean temPermissoes(List<String> permissoes) {
 		
+		for(String permissao : permissoes){
+			
+			if(usuarioLogado.getTipo() == permissao.charAt(0)){
+				
+				System.out.println("tipo: "+usuarioLogado.getTipoFormatado());
+				
+				return true;
+				
+			}			
+		}	
 		
+		return false;
 	}
 	
 	
- 
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -78,11 +89,11 @@ public class AutenticacaoBean implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
- 
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
- 
+
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
@@ -94,7 +105,5 @@ public class AutenticacaoBean implements Serializable {
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
-
-	 
 
 }

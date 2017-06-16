@@ -15,23 +15,14 @@
 <h:body>
 	<p:growl id="mensagem" />
 	<div id="container" class="container">
-
-
-
-
+ 
 		<div id="topo" class="divTopo">
 
 			<p:graphicImage library="images" name="tux.png" width="100px"
 				height="100px" styleClass="imagemTopo" />
-
  
-				 
-	 
 		</div>
-
-
-
-
+ 
 		<div id="cabecalho" class="divCabecalho">
 
 			<p:growl id="menu" />
@@ -42,7 +33,7 @@
 						<p:menuitem value="Sair" />
 					</p:submenu>
 
-					<p:submenu label="Cadastros">
+					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A','G'])}">
 						<p:menuitem value="Estado" url="/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/pages/cidades.xhtml" />
 						<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
