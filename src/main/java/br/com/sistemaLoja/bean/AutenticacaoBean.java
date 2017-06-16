@@ -66,22 +66,21 @@ public class AutenticacaoBean implements Serializable {
 	}
 
 	public boolean temPermissoes(List<String> permissoes) {
-		
-		for(String permissao : permissoes){
-			
-			if(usuarioLogado.getTipo() == permissao.charAt(0)){
-				
-				System.out.println("tipo: "+usuarioLogado.getTipoFormatado());
-				
+
+		for (String permissao : permissoes) {
+
+			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
+
+				System.out.println("tipo: " + usuarioLogado.getTipoFormatado());
+
 				return true;
-				
-			}			
-		}	
-		
+
+			}
+		}
+
 		return false;
 	}
-	
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
