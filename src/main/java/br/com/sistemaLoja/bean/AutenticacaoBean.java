@@ -119,6 +119,14 @@ public class AutenticacaoBean implements Serializable {
 		}
 
 	}
+	
+	public String sair(){
+		
+		usuarioLogado = null;
+		
+		return "/pages/autenticacao.xhtml?faces-redirect=true";
+		
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
