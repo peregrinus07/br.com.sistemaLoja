@@ -34,12 +34,16 @@ public class AutenticacaoBean implements Serializable {
 	@PostConstruct
 	public void iniciar() throws IOException {
 
+		
+		System.out.println("iniciar autenticacao: ");
 		usuario = new Usuario();
 		pessoa = new Pessoa();
 
 		usuario.setPessoa(pessoa);
 		
-		permissaoMenuCadastro = false; 
+		usuarioLogado = null;
+
+		permissaoMenuCadastro = false;
 
 	}
 
@@ -58,6 +62,9 @@ public class AutenticacaoBean implements Serializable {
 				return;
 			}
 
+			
+			System.out.println("Usuario Logado: "+usuarioLogado.getPessoa().getNome());
+			
 			Faces.redirect("./pages/principal.xhtml");
 			temPermissaoMenuCadastro();
 
@@ -69,7 +76,7 @@ public class AutenticacaoBean implements Serializable {
 
 	}
 
-	public boolean temPermissoes(List<String> permissoes) {
+	public boolean temPermissoes(List<String> permissoes) {http://localhost:8080/SistemaLoja/pages/principal.xhtml
 
 		for (String permissao : permissoes) {
 
@@ -87,7 +94,13 @@ public class AutenticacaoBean implements Serializable {
 		return false;
 	}
 
-	public boolean temPermissaoMenuCadastro() {
+	public boolean temPermissaoMenuCadastro() throws IOException {
+
+		if (usuarioLogado == null) {
+
+			Faces.redirect("./pages/autenticaao.xhtml");
+
+		}
 
 		System.out.println("Tipo de Permissao do usuario: " + usuarioLogado.getTipo());
 
@@ -96,11 +109,10 @@ public class AutenticacaoBean implements Serializable {
 			System.out.println("usuario: " + usuarioLogado.getTipo());
 
 			permissaoMenuCadastro = false;
-			
+
 			return false;
 		} else {
 
-			 
 			permissaoMenuCadastro = true;
 			return true;
 
