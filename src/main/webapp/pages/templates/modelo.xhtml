@@ -5,14 +5,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-
+ 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Sistema para Gerenciamento de Pequenas Empresas</title>
 	<h:outputStylesheet library="css" name="estilo.css" />
 </h:head>
-<h:body>
+<h:body onunload="#{autenticacaoBean.temPermissaoMenuCadastro()}">
 	<p:growl id="mensagem" />
 	<div id="container" class="container">
 
@@ -26,11 +25,11 @@
 		<div id="cabecalho" class="divCabecalho">
 
 			<p:growl id="menu" />
-			<h:form id="formMenu">
-				<p:menubar>
+			<h:form  id="formMenu">
+				<p:menubar >
 
 					<p:submenu label="Cadastros"
-						rendered="#{autenticacaoBean.temPermissoes(['A','G'])}">
+						rendered="#{autenticacaoBean.permissaoMenuCadastro}">
 						<p:menuitem value="Estado" url="/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/pages/cidades.xhtml" />
 						<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
@@ -56,7 +55,7 @@
 					</p:submenu>
 
 					<p:submenu label="Ajuda">
-						<p:menuitem value="Sobre" />
+						<p:menuitem value="Sobre" />						
 					</p:submenu>
 
 				</p:menubar>

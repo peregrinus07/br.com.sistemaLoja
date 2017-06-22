@@ -29,14 +29,17 @@ public class AutenticacaoBean implements Serializable {
 	private Usuario usuario;
 	private Pessoa pessoa;
 	private Usuario usuarioLogado;
+	private Boolean permissaoMenuCadastro;
 
 	@PostConstruct
-	public void iniciar() {
+	public void iniciar() throws IOException {
 
 		usuario = new Usuario();
 		pessoa = new Pessoa();
 
 		usuario.setPessoa(pessoa);
+		
+		permissaoMenuCadastro = false; 
 
 	}
 
@@ -56,6 +59,7 @@ public class AutenticacaoBean implements Serializable {
 			}
 
 			Faces.redirect("./pages/principal.xhtml");
+			temPermissaoMenuCadastro();
 
 		} catch (Exception e) {
 
@@ -69,6 +73,8 @@ public class AutenticacaoBean implements Serializable {
 
 		for (String permissao : permissoes) {
 
+			System.out.println("Permissao: " + permissao.charAt(0));
+
 			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
 
 				System.out.println("tipo: " + usuarioLogado.getTipoFormatado());
@@ -79,6 +85,27 @@ public class AutenticacaoBean implements Serializable {
 		}
 
 		return false;
+	}
+
+	public boolean temPermissaoMenuCadastro() {
+
+		System.out.println("Tipo de Permissao do usuario: " + usuarioLogado.getTipo());
+
+		if (usuarioLogado.getTipo() == 'B') {
+
+			System.out.println("usuario: " + usuarioLogado.getTipo());
+
+			permissaoMenuCadastro = false;
+			
+			return false;
+		} else {
+
+			 
+			permissaoMenuCadastro = true;
+			return true;
+
+		}
+
 	}
 
 	public Usuario getUsuario() {
@@ -103,6 +130,14 @@ public class AutenticacaoBean implements Serializable {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+
+	public Boolean getPermissaoMenuCadastro() {
+		return permissaoMenuCadastro;
+	}
+
+	public void setPermissaoMenuCadastro(Boolean permissaoMenuCadastro) {
+		this.permissaoMenuCadastro = permissaoMenuCadastro;
 	}
 
 }
