@@ -104,13 +104,18 @@
 
 					<p:outputLabel for="nome" value="Nome: " />
 					<p:inputText id="nome" size="30" maxlength="50"
-						value="#{ProdutoBean.produto.nome}" required="true"
-						requiredMessage="O campo 'Nome' é obrigatório" />
+						converter="upperCaseConverter" value="#{ProdutoBean.produto.nome}"
+						required="true" requiredMessage="O campo 'Nome' é obrigatório">
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
 
 					<p:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" size="30" maxlength="50"
+						converter="upperCaseConverter"
 						value="#{ProdutoBean.produto.descricao}" required="true"
-						requiredMessage="O campo 'Descrição' é obrigatório" />
+						requiredMessage="O campo 'Descrição' é obrigatório">
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
 
 					<p:outputLabel for="quantidade" value="Quantidade: " />
 					<p:inputText id="quantidade" size="30" maxlength="50"

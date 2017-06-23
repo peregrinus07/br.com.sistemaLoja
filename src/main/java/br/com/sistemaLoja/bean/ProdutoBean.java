@@ -1,10 +1,7 @@
 package br.com.sistemaLoja.bean;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -36,17 +33,9 @@ import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.ProdutoDao;
 import br.com.sistemaloja.util.HibernetUtil;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.OutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "ProdutoBean")
@@ -105,7 +94,7 @@ public class ProdutoBean implements Serializable {
 			Produto produtoRetorno = ProdutoDao.merge(produto);
 
 			Path origem = Paths.get(produto.getCaminho());
-			Path destino = Paths.get("/home/tibe/upload/" + produtoRetorno.getCodigo() + ".png");
+			Path destino = Paths.get("/tmp/" + produtoRetorno.getCodigo() + ".png");
 
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 
@@ -138,7 +127,7 @@ public class ProdutoBean implements Serializable {
 			ProdutoDao ProdutoDao = new ProdutoDao();
 			ProdutoDao.excluir(produto);
 
-			Path delete = Paths.get("/home/tibe/upload/" + produto.getCodigo() + ".png");
+			Path delete = Paths.get("/tmp/" + produto.getCodigo() + ".png");
 
 			Files.deleteIfExists(delete);
 
@@ -166,7 +155,7 @@ public class ProdutoBean implements Serializable {
 			produto = new Produto();
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
-			produto.setCaminho("/home/tibe/upload/" + produto.getCodigo() + ".png");
+			produto.setCaminho("/tmp/" + produto.getCodigo() + ".png");
 
 			FabricanteDao FabricanteDao = new FabricanteDao();
 			fabricantes = FabricanteDao.listar();
@@ -246,7 +235,7 @@ public class ProdutoBean implements Serializable {
 			Connection conexao = HibernetUtil.getConexao();
 
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
-			OutputStream saida = new FileOutputStream("/home/tibe/teste/relatorio.pdf");
+			OutputStream saida = new FileOutputStream("/tmp/relatorio.pdf");
 
 			// JasperExportManager.exportReportToPdfFile(relatorio,
 			// "/home/tibe/teste/relatorio.pdf");

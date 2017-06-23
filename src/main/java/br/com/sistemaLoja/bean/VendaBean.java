@@ -173,7 +173,7 @@ public class VendaBean implements Serializable {
 
 		} catch (RuntimeException e) {
 
-			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar uma nova cidades");
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar realiar a venda");
 		}
 
 	}

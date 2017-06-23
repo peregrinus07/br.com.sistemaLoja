@@ -48,8 +48,9 @@
 
 .ui-growl{
      position: fixo;
-     top: 40%;
-     left: 50%;
+     top: 80%;
+     margin-top: 100px;
+     left: 75%;
      width: 360px;
      height: 110px;
      z-index:9999;

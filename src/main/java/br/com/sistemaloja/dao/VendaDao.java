@@ -2,11 +2,15 @@ package br.com.sistemaloja.dao;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
+import br.com.sistemaLoja.domain.Usuario;
 import br.com.sistemaLoja.domain.Venda;
 import br.com.sistemaloja.util.HibernetUtil;
 
@@ -45,7 +49,6 @@ public class VendaDao extends GenericDao<Venda> {
 				} else {
 					throw new RuntimeException("Quantidade insuficiente em estoque");
 				}
-				
 
 			}
 
@@ -67,5 +70,7 @@ public class VendaDao extends GenericDao<Venda> {
 		}
 
 	}
+
+	
 
 }
