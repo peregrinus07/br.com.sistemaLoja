@@ -124,8 +124,10 @@ public class ProdutoBean implements Serializable {
 
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoselecionado");
 
-			ProdutoDao ProdutoDao = new ProdutoDao();
-			ProdutoDao.excluir(produto);
+			System.out.println("Nome: "+produto.getNome());
+			
+ 			ProdutoDao ProdutoDao = new ProdutoDao();
+ 			ProdutoDao.excluir(produto);
 
 			Path delete = Paths.get("/tmp/" + produto.getCodigo() + ".png");
 

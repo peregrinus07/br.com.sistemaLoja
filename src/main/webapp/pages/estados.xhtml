@@ -34,15 +34,15 @@
 					</p:column>
 
 					<p:column headerText="Opções">
+
 						<p:commandButton icon="ui-icon-trash"
 							actionListener="#{estadoBean.excluir}"
-							update=":mensagem
-						 :formListaEstados:tabelaEstados">
-							<p:confirm header="Confirmação"
-								message="Deseja excluir o Estado?" icon="ui-icon-alert" />
+							update=":mensagem :formCadastro:painel">
+							<p:confirm header="Confirmação" message="Deseja excluir a cidade"
+								icon="ui-icon-alert" />
 							<f:attribute name="estadoSelecionado" value="#{estado}" />
 						</p:commandButton>
-
+						
 						<p:commandButton icon="ui-icon-pencil"
 							actionListener="#{estadoBean.editar}"
 							update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
@@ -70,17 +70,17 @@
 			<h:form id="formCadastro">
 				<h:panelGrid id="painel" columns="2">
 					<p:outputLabel value="Nome: " />
-					<p:inputText size="30" maxlength="20" converter="upperCaseConverter"
-						value="#{estadoBean.estado.nome}" >
-					
+					<p:inputText size="30" maxlength="20"
+						converter="upperCaseConverter" value="#{estadoBean.estado.nome}">
+
 						<p:ajax event="blur" update="@this" />
-					</p:inputText>	
+					</p:inputText>
 
 					<p:outputLabel value="Sigla: " />
-					<p:inputText id="sigla" size="10" maxlength="2" converter="upperCaseConverter"
-						value="#{estadoBean.estado.sigla}" >
-						
-						<p:ajax event="blur" update="@this" />	
+					<p:inputText id="sigla" size="10" maxlength="2"
+						converter="upperCaseConverter" value="#{estadoBean.estado.sigla}">
+
+						<p:ajax event="blur" update="@this" />
 					</p:inputText>
 
 				</h:panelGrid>

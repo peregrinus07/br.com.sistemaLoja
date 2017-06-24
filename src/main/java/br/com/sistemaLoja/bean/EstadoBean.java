@@ -41,7 +41,7 @@ public class EstadoBean implements Serializable {
 
 		} catch (RuntimeException erro) { 
 
-			Messages.addGlobal(null, "Ocorreu um erro ao tentar listar os estados", null);
+			Messages.addGlobal(null, "Ocorreu um erro ao tentar listar os estados");
 
 			erro.printStackTrace();
 		}

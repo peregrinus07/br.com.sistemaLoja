@@ -11,25 +11,21 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.omnifaces.util.Messages;
-import org.w3c.dom.ls.LSInput;
 
-import br.com.sistemaLoja.domain.Cidade;
 import br.com.sistemaLoja.domain.Cliente;
-import br.com.sistemaLoja.domain.Estado;
 import br.com.sistemaLoja.domain.Funcionario;
 import br.com.sistemaLoja.domain.ItemVenda;
 import br.com.sistemaLoja.domain.Produto;
 import br.com.sistemaLoja.domain.Venda;
-import br.com.sistemaloja.dao.CidadeDao;
 import br.com.sistemaloja.dao.ClienteDao;
-import br.com.sistemaloja.dao.EstadoDao;
-import br.com.sistemaloja.dao.FabricanteDao;
 import br.com.sistemaloja.dao.FuncionarioDao;
 import br.com.sistemaloja.dao.ProdutoDao;
 import br.com.sistemaloja.dao.VendaDao;
+
+
+ 
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "vendaBean")
@@ -44,7 +40,7 @@ public class VendaBean implements Serializable {
 	private List<Funcionario> funcionarios;
 
 	@PostConstruct
-	public void listar() {
+	public void listar() throws Exception {
 
 		try {
 
@@ -52,9 +48,10 @@ public class VendaBean implements Serializable {
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
 			ProdutoDao ProdutoDao = new ProdutoDao();
-			produtos = ProdutoDao.listar("descricao");
+			produtos = ProdutoDao.listarPorQuantidadeMinima();
 			itensVenda = new ArrayList<>();
-
+  
+			
 		} catch (RuntimeException erro) {
 
 			Messages.addFlashError("Ocorreu um erro ao tentar listar os produtos", null, null);

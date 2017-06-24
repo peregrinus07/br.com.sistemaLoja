@@ -10,6 +10,7 @@ import br.com.sistemaLoja.domain.Produto;
 public class ProdutoDaoTest {
 
 	@Test
+	@Ignore
 	public void produtoPorquantidadeMinima() throws Exception {
 
 		ProdutoDao produtoDao = new ProdutoDao();
