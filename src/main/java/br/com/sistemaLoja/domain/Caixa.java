@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 @Table (name ="tb_caixa")
 public class Caixa extends GenericDomain {
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeAbertura;
 	
@@ -24,9 +24,7 @@ public class Caixa extends GenericDomain {
 	
 	@Column (nullable = false, precision = 7 , scale = 2)
 	private BigDecimal valor;
-	
-	
-
+	 
 	public Date getDataDeAbertura() {
 		return dataDeAbertura;
 	}

@@ -47,7 +47,7 @@
 		<mapping class="br.com.sistemaLoja.domain.ItemVenda" />
 		<mapping class="br.com.sistemaLoja.domain.Historico" />
 		<mapping class="br.com.sistemaLoja.domain.Caixa" />
-
+		<mapping class="br.com.sistemaLoja.domain.Movimentacao" />
 
 
 	</session-factory>

@@ -9,6 +9,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.jdbc.ReturningWork;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class HibernetUtil {
 
@@ -57,6 +59,8 @@ public class HibernetUtil {
 
 	}
 
+	@Test
+	@Ignore
 	public void criarConexao() throws Exception {
 		// A SessionFactory is set up once for an application!
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure() // configures
