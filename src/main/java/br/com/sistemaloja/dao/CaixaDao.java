@@ -1,15 +1,12 @@
 package br.com.sistemaloja.dao;
 
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.sistemaLoja.domain.Caixa;
-import br.com.sistemaLoja.domain.Cidade;
 import br.com.sistemaloja.util.HibernetUtil;
 
 public class CaixaDao extends GenericDao<Caixa> {

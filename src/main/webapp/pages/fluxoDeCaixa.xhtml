@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/pages/templates/modelo.xhtml">
+
+
+	<ui:define name="conteudo">
+		<h:form id="formListaEstados">
+			<p:panel header="Fluxo de Caixa - Listagem">
+
+				<p:dataTable id="tabelaEstados"
+					emptyMessage="Nenhum registro encontrado." paginator="true"
+					value="#{fluxoDeCaixaBean.listaDeCaixas}" var="caixa" rows="5"
+					paginatorPosition="bottom">
+
+					<f:facet name="header">
+						<p:commandButton value="Abrir Caixa"
+							oncomplete="PF('dialogo').show();"
+							actionListener="#{estadoBean.novo()}"
+							update=":formCadastro:painel">
+							<p:confirm header="Confirmação" message="Deseja excluir a cidade"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</f:facet>
+
+					<p:column headerText="Data de Abertura" sortBy="#{caixa.dataDeAbertura}"
+						filterBy="#{caixa.dataDeAbertura}">
+						<h:outputText value="#{caixa.dataDeAbertura}" />
+					</p:column>
+
+					<p:column headerText="Data de Encerramento" sortBy="#{caixa.dataDeFeichamento}"
+						filterBy="#{caixa.dataDeFeichamento}">
+						<h:outputText value="#{caixa.dataDeFeichamento}" />
+					</p:column>
+
+					<p:column headerText="Opções">
+
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{estadoBean.excluir}"
+							update=":mensagem :formCadastro:painel">
+							<p:confirm header="Confirmação" message="Deseja excluir a cidade"
+								icon="ui-icon-alert" />
+							<f:attribute name="estadoSelecionado" value="#{estado}" />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{estadoBean.editar}"
+							update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+							<f:attribute name="estadoSelecionado" value="#{estado}" />
+						</p:commandButton>
+
+					</p:column>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Estados - Cadastros" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true">
+
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText size="30" maxlength="20"
+						converter="upperCaseConverter" value="#{estadoBean.estado.nome}">
+
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
+
+					<p:outputLabel value="Sigla: " />
+					<p:inputText id="sigla" size="10" maxlength="2"
+						converter="upperCaseConverter" value="#{estadoBean.estado.sigla}">
+
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{estadoBean.salvar}"
+						update=":mensagem :formCadastro:painel
+					 :formListaEstados:tabelaEstados" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

@@ -28,6 +28,7 @@ public class CaixaDaoTest {
 
 	
 	@Test
+	@Ignore
 	public void buscar() throws ParseException, Exception {
 		
 		CaixaDao caixaDao = new CaixaDao();
