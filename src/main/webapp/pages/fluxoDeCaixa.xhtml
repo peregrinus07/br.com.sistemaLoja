@@ -39,18 +39,14 @@
 
 					<p:column headerText="Opções">
 
-						<p:commandButton icon="ui-icon-trash"
-							actionListener="#{estadoBean.excluir}"
-							update=":mensagem :formCadastro:painel">
-							<p:confirm header="Confirmação" message="Deseja excluir a cidade"
-								icon="ui-icon-alert" />
-							<f:attribute name="estadoSelecionado" value="#{estado}" />
-						</p:commandButton>
+						 
 
 						<p:commandButton icon="ui-icon-pencil"
-							actionListener="#{estadoBean.editar}"
-							update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
-							<f:attribute name="estadoSelecionado" value="#{estado}" />
+							actionListener="#{fluxoDeCaixaBean.encerrarCaixa}"
+							update=":formCadastro:painel">
+							<p:confirm header="Confirmação" message="Deseja encerrar o caixa?"
+								icon="ui-icon-alert" />
+							<f:attribute name="caixaSelecionado" value="#{caixa}" />
 						</p:commandButton>
 
 					</p:column>
